@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthProvider';
 
@@ -25,6 +26,7 @@ const Login = () => {
         signIn(email, password).then((result) => {
             const { user } = result;
             console.log("🚀 ~ user", user);
+            toast.success('successfully log in');
 
             // get user token
             set_loginUserEmail(email);
