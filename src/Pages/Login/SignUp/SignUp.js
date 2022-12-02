@@ -156,9 +156,9 @@ const SignUp = () => {
                                     }
                                 </div>
                             </form>
-                            <p>Already have a Account? Please <Link className='text-success' to={'/login'}>login</Link></p>
+                            <p>Already have a Account? Please <Link className='text-primary' to={'/login'}>login</Link></p>
                             <div className="divider">OR</div>
-                            <div onClick={handleGoogleLogin} className="btn btn-outline w-full">CONTINUE WITH GOOGLE</div>
+                            <div onClick={handleGoogleLogin} className="btn btn-primary btn-outline w-full">CONTINUE WITH GOOGLE</div>
                         </div>
                     </div>
                 </div>

@@ -109,9 +109,9 @@ const Login = () => {
                                     }
                                 </div>
                             </form>
-                            <p>New to here? <Link to={'/signup'} className="text-success">Create New Account</Link></p>
+                            <p>New to here? <Link to={'/signup'} className="text-primary">Create New Account</Link></p>
                             <div className="divider">OR</div>
-                            <div onClick={handleGoogleLogin} className="btn btn-outline w-full">CONTINUE WITH GOOGLE</div>
+                            <div onClick={handleGoogleLogin} className="btn btn-primary btn-outline w-full">CONTINUE WITH GOOGLE</div>
                         </div>
                     </div>
                 </div>
