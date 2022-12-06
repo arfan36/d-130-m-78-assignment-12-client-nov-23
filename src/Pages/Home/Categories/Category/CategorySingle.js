@@ -1,18 +1,26 @@
-import React, { useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import React, { useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
+import Loading from '../../../Shared/Loading/Loading';
 import BookingModal from './BookingModal';
 import CategoryDetails from './CategoryDetails';
 
 const CategorySingle = () => {
-    const loaderData = useLoaderData();
-    const [categorySingles, set_categorySingles] = useState(loaderData);
+    const loadCategoryId = useLoaderData();
     const [bookedPhone, set_bookedPhone] = useState(null);
 
-    useEffect(() => {
-        fetch(`http://localhost:7000/category/${categorySingles[0].categoryId}`)
-            .then(res => res.json())
-            .then(data => set_categorySingles(data));
-    }, [categorySingles]);
+    const { data: categorySingles, refetch, isLoading } = useQuery({
+        queryKey: ['categoryId'],
+        queryFn: async () => {
+            const res = await fetch(`http://localhost:7000/category/${loadCategoryId}`);
+            const data = await res.json();
+            return data;
+        }
+    });
+
+    if (isLoading) {
+        return <Loading></Loading>;
+    }
 
 
     return (
@@ -32,6 +40,7 @@ const CategorySingle = () => {
                     <BookingModal
                         bookedPhone={bookedPhone}
                         set_bookedPhone={set_bookedPhone}
+                        refetch={refetch}
                     ></BookingModal>
                 }
             </div>

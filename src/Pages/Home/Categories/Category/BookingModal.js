@@ -1,6 +1,6 @@
 import React from 'react';
 
-const BookingModal = ({ bookedPhone, set_bookedPhone }) => {
+const BookingModal = ({ bookedPhone, set_bookedPhone, refetch }) => {
     return (
         <div>
             <input type="checkbox" id="phone-booking-modal" className="modal-toggle" />
