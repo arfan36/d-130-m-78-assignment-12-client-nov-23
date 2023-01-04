@@ -19,7 +19,7 @@ const Login = () => {
     // handle Login
     const handleLogin = (data) => {
         console.log(data);
-        const { email, password } = data;
+        const { email, password, userType } = data;
         set_loginError('');
 
         // signIn With Email And Password
@@ -99,9 +99,23 @@ const Login = () => {
                                         <Link to="" className="label-text-alt link link-hover">Forgot password?</Link>
                                     </label>
                                 </div>
+                                <div className='form-control'>
+                                    <label className="label">
+                                        <span className="label-text">User Type</span>
+                                    </label>
+                                    <select
+                                        {...register("userType")}
+                                        className="input input-bordered"
+                                    >
+                                        <option value="buyer">Buyer</option>
+                                        <option value="seller">Seller</option>
+                                    </select>
+                                </div>
+
                                 <div className="form-control mt-6">
                                     <button className="btn btn-primary">Login</button>
                                 </div>
+
                                 <div>
                                     {
                                         loginError &&

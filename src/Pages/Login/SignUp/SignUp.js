@@ -1,25 +1,27 @@
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthProvider';
+import useToken from '../../../hooks/useToken';
 
 const SignUp = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
     const { createUser, updateUser, providerLogin } = useContext(AuthContext);
     const [signUpError, set_signUpError] = useState('');
     const [createUserEmail, set_createUserEmail] = useState('');
-    // token
-
-    const location = useLocation();
+    const [token] = useToken(createUserEmail);
     const navigate = useNavigate();
 
-    const from = location.state?.from?.pathname || '/';
+    // token
+    if (token) {
+        navigate('/');
+    }
 
     // handle Login
     const handleSignUp = (data) => {
         console.log(data);
-        const { name, email, password } = data;
+        const { name, email, password, userType } = data;
         set_signUpError('');
 
         // create user with email and password
@@ -36,7 +38,7 @@ const SignUp = () => {
                 toast.success('user info updated');
 
                 // save user info
-
+                saveUser(name, email, userType);
 
             }).catch((err) => {
                 console.error('err', err);
@@ -47,18 +49,24 @@ const SignUp = () => {
             set_signUpError(err.message);
         });
 
-        // // signIn With Email And Password
-        // signIn(email, password).then((result) => {
-        //     const { user } = result;
-        //     console.log("🚀 ~ user", user);
-
-        //     // get user token
-        //     set_loginUserEmail(email);
-
-        // }).catch((err) => {
-        //     console.error('err', err);
-        //     set_loginError(err.message);
-        // });
+        // save User info
+        const saveUser = (name, email, userType) => {
+            const user = { name, email, userType };
+            fetch(`http://localhost:7000/users`, {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(user)
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                    // get user token
+                    set_createUserEmail(email);
+                })
+                .catch(err => console.error('err', err));
+        };
     };
 
     // handle google login
@@ -146,6 +154,20 @@ const SignUp = () => {
                                         <Link to="" className="label-text-alt link link-hover">Forgot password?</Link>
                                     </label>
                                 </div>
+
+                                <div className='form-control'>
+                                    <label className="label">
+                                        <span className="label-text">User Type</span>
+                                    </label>
+                                    <select
+                                        {...register("userType")}
+                                        className="input input-bordered"
+                                    >
+                                        <option value="buyer">Buyer</option>
+                                        <option value="seller">Seller</option>
+                                    </select>
+                                </div>
+
                                 <div className="form-control mt-6">
                                     <button className="btn btn-primary">signUp</button>
                                 </div>
