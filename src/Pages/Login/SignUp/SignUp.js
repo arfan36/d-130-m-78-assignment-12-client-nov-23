@@ -183,7 +183,7 @@ const SignUp = () => {
                             </form>
                             <p>Already have a Account? Please <Link className='text-primary' to={'/login'}>login</Link></p>
                             <div className="divider">OR</div>
-                            <div onClick={handleGoogleLogin} className="btn btn-primary btn-outline w-full">CONTINUE WITH GOOGLE</div>
+                            <div onClick={handleGoogleLogin} className="btn btn-primary btn-outline w-full">Buyer Login with Google</div>
                         </div>
                     </div>
                 </div>

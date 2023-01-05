@@ -26,7 +26,7 @@ const Login = () => {
     // handle Login
     const handleLogin = (data) => {
         console.log(data);
-        const { email, password, userType } = data;
+        const { email, password } = data;
         set_loginError('');
 
         // signIn With Email And Password
@@ -42,6 +42,7 @@ const Login = () => {
             console.error('err', err);
             set_loginError(err.message);
         });
+
     };
 
     // save User info
@@ -72,9 +73,6 @@ const Login = () => {
             const { displayName, email } = user;
             console.log("🚀 ~ user", user);
 
-            /* // get user token
-            set_loginUserEmail(user.email); */
-
             // save user
             saveUser(displayName, email, "buyer");
 
@@ -89,7 +87,7 @@ const Login = () => {
             <div className="hero min-h-screen bg-base-200">
                 <div className="hero-content flex-col">
                     <div className="text-center lg:text-left">
-                        <h1 className="text-5xl font-bold">Login now!</h1>
+                        <h1 className="text-5xl font-bold">Login Now!</h1>
                     </div>
                     <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
                         <div className="card-body">
@@ -130,18 +128,6 @@ const Login = () => {
                                         <Link to="" className="label-text-alt link link-hover">Forgot password?</Link>
                                     </label>
                                 </div>
-                                <div className='form-control'>
-                                    <label className="label">
-                                        <span className="label-text">User Type</span>
-                                    </label>
-                                    <select
-                                        {...register("userType")}
-                                        className="input input-bordered"
-                                    >
-                                        <option value="buyer">Buyer</option>
-                                        <option value="seller">Seller</option>
-                                    </select>
-                                </div>
 
                                 <div className="form-control mt-6">
                                     <button className="btn btn-primary">Login</button>
@@ -156,7 +142,7 @@ const Login = () => {
                             </form>
                             <p>New to here? <Link to={'/signup'} className="text-primary">Create New Account</Link></p>
                             <div className="divider">OR</div>
-                            <div onClick={handleGoogleLogin} className="btn btn-primary btn-outline w-full">CONTINUE WITH GOOGLE</div>
+                            <div onClick={handleGoogleLogin} className="btn btn-primary btn-outline w-full">Buyer Login with Google</div>
                         </div>
                     </div>
                 </div>

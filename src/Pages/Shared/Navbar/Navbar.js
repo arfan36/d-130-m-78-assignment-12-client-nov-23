@@ -1,9 +1,17 @@
-import React, { useContext } from 'react';
+import axios from 'axios';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthProvider';
 
 const Navbar = () => {
     const { user, logOut } = useContext(AuthContext);
+    const [loadUserType, set_loadUserType] = useState('');
+
+    // check userType
+    axios.get(`http://localhost:7000/users?email=${user?.email}`)
+        .then(data => {
+            set_loadUserType(data.data.userType);
+        });
 
     const handleLogOut = () => {
         logOut().then(() => {
@@ -15,14 +23,35 @@ const Navbar = () => {
     const menuItems = <>
         <li><Link to={'/'}>Home</Link></li>
         <li><Link to={'/categories'}>Category</Link></li>
+        {
+            user?.uid && loadUserType === "buyer" &&
+            <>
+                <li><Link to={'/buyer-myOrder'}>My Orders</Link></li>
+                <li><Link to={'/buyer-wishlist'}>WishList</Link></li>
+                <li><Link to={'/buyer-dashboard'}>Dashboard</Link></li>
+            </>
+        }
+        {
+            user?.uid && loadUserType === "seller" &&
+            <>
+                <li><Link to={'/seller-addAProduct'}>Add A Product</Link></li>
+                <li><Link to={'/seller-myProduct'}>My Products</Link></li>
+                <li><Link to={'/seller-myBuyers'}>My Buyers</Link></li>
+            </>
+        }
+        {
+            user?.uid && loadUserType === "admin" &&
+            <>
+                <li><Link to={'/admin-allSellers'}>All Sellers</Link></li>
+                <li><Link to={'/admin-allBuyers'}>All Buyers</Link></li>
+                <li><Link to={'/admin-reportedItems'}>Reported Items</Link></li>
+            </>
+        }
         <li><Link to={'/about'}>About</Link></li>
         <li><Link to={'/blog'}>Blog</Link></li>
         {
             user?.uid ?
-                <>
-                    <li><Link to={'/dashboard'}>Dashboard</Link></li>
-                    <li><button onClick={handleLogOut}>Sign out</button></li>
-                </>
+                <li><button onClick={handleLogOut}>Sign out</button></li>
                 : <li><Link to={'/login'}>Login</Link></li>
         }
     </>;
