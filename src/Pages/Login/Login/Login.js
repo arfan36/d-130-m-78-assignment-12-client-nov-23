@@ -3,18 +3,25 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthProvider';
+import useToken from '../../../hooks/useToken';
 
 const Login = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
     const { signIn, providerLogin } = useContext(AuthContext);
     const [loginError, set_loginError] = useState('');
     const [loginUserEmail, set_loginUserEmail] = useState('');
-    // token
 
+    // get user token
+    const [token] = useToken(loginUserEmail);
     const location = useLocation();
     const navigate = useNavigate();
 
     const from = location.state?.from?.pathname || '/';
+
+    // if token saved to local storage
+    if (token) {
+        navigate(from, { replace: true });
+    }
 
     // handle Login
     const handleLogin = (data) => {
@@ -37,15 +44,39 @@ const Login = () => {
         });
     };
 
+    // save User info
+    const saveUser = (name, email, userType) => {
+        const user = { name, email, userType };
+        fetch(`http://localhost:7000/users`, {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+
+                // get user token
+                set_loginUserEmail(email);
+            })
+            .catch(err => console.error('err', err));
+    };
+
     // handle google login
     const handleGoogleLogin = () => {
         set_loginError('');
         providerLogin().then((result) => {
             const { user } = result;
+            const { displayName, email } = user;
             console.log("🚀 ~ user", user);
 
-            // get user token
-            set_loginUserEmail(user.email);
+            /* // get user token
+            set_loginUserEmail(user.email); */
+
+            // save user
+            saveUser(displayName, email, "buyer");
 
         }).catch((err) => {
             console.error('err', err);

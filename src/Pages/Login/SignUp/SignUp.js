@@ -10,10 +10,12 @@ const SignUp = () => {
     const { createUser, updateUser, providerLogin } = useContext(AuthContext);
     const [signUpError, set_signUpError] = useState('');
     const [createUserEmail, set_createUserEmail] = useState('');
+
+    // get user token
     const [token] = useToken(createUserEmail);
     const navigate = useNavigate();
 
-    // token
+    // if token saved to local storage
     if (token) {
         navigate('/');
     }
@@ -48,25 +50,25 @@ const SignUp = () => {
             console.error('err', err);
             set_signUpError(err.message);
         });
+    };
 
-        // save User info
-        const saveUser = (name, email, userType) => {
-            const user = { name, email, userType };
-            fetch(`http://localhost:7000/users`, {
-                method: 'POST',
-                headers: {
-                    'content-type': 'application/json'
-                },
-                body: JSON.stringify(user)
+    // save User info
+    const saveUser = (name, email, userType) => {
+        const user = { name, email, userType };
+        fetch(`http://localhost:7000/users`, {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                // get user token
+                set_createUserEmail(email);
             })
-                .then(res => res.json())
-                .then(data => {
-                    console.log(data);
-                    // get user token
-                    set_createUserEmail(email);
-                })
-                .catch(err => console.error('err', err));
-        };
+            .catch(err => console.error('err', err));
     };
 
     // handle google login
@@ -74,10 +76,11 @@ const SignUp = () => {
         set_signUpError('');
         providerLogin().then((result) => {
             const { user } = result;
+            const { displayName, email } = user;
             console.log("🚀 ~ user", user);
 
-            // get user token
-            set_createUserEmail(user.email);
+            // save user info
+            saveUser(displayName, email, "buyer");
 
         }).catch((err) => {
             console.error('err', err);
