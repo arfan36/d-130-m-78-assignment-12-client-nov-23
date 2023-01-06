@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthProvider';
 // import useAdmin from '../hooks/useAdmin';
 import Navbar from '../Pages/Shared/Navbar/Navbar';
@@ -22,9 +22,9 @@ const DashboardLayout = () => {
             <Navbar></Navbar>
             <div className="drawer drawer-mobile">
                 <input id="dashboard-drawer" type="checkbox" className="drawer-toggle" />
-                <div className="drawer-content flex flex-col items-center justify-center">
+                <div className="drawer-content">
                     {/* <!-- Page content here --> */}
-
+                    <Outlet></Outlet>
                 </div>
                 <div className="drawer-side">
                     <label htmlFor="dashboard-drawer" className="drawer-overlay"></label>
@@ -33,25 +33,25 @@ const DashboardLayout = () => {
                         {
                             user?.uid && loadUserType === "buyer" &&
                             <>
-                                <li><Link to={'/buyer-myOrder'}>My Orders</Link></li>
-                                <li><Link to={'/buyer-wishlist'}>WishList</Link></li>
-                                <li><Link to={'/buyer-dashboard'}>Dashboard</Link></li>
+                                <li><Link to={'/dashboard/buyer-myOrder'}>My Orders</Link></li>
+                                <li><Link to={'/dashboard/buyer-wishlist'}>WishList</Link></li>
+                                <li><Link to={'/dashboard/buyer-dashboard'}>Dashboard</Link></li>
                             </>
                         }
                         {
                             user?.uid && loadUserType === "seller" &&
                             <>
-                                <li><Link to={'/seller-addAProduct'}>Add A Product</Link></li>
-                                <li><Link to={'/seller-myProduct'}>My Products</Link></li>
-                                <li><Link to={'/seller-myBuyers'}>My Buyers</Link></li>
+                                <li><Link to={'/dashboard/seller-addAProduct'}>Add A Product</Link></li>
+                                <li><Link to={'/dashboard/seller-myProduct'}>My Products</Link></li>
+                                <li><Link to={'/dashboard/seller-myBuyers'}>My Buyers</Link></li>
                             </>
                         }
                         {
                             user?.uid && loadUserType === "admin" &&
                             <>
-                                <li><Link to={'/admin-allSellers'}>All Sellers</Link></li>
-                                <li><Link to={'/admin-allBuyers'}>All Buyers</Link></li>
-                                <li><Link to={'/admin-reportedItems'}>Reported Items</Link></li>
+                                <li><Link to={'/dashboard/admin-allSellers'}>All Sellers</Link></li>
+                                <li><Link to={'/dashboard/admin-allBuyers'}>All Buyers</Link></li>
+                                <li><Link to={'/dashboard/admin-reportedItems'}>Reported Items</Link></li>
                             </>
                         }
                     </ul>
