@@ -9,6 +9,7 @@ export default function useToken(email) {
                 .then(res => res.json())
                 .then(data => {
                     if (data.accessToken) {
+                        // save token to local storage
                         localStorage.setItem('accessToken', data.accessToken);
                         set_token(data.accessToken);
                         toast.success('token add to local storage');

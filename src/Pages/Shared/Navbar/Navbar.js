@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthProvider';
+import { AiOutlineMenuFold } from "react-icons/ai";
 
 const Navbar = () => {
     const { user, logOut } = useContext(AuthContext);
@@ -23,35 +24,13 @@ const Navbar = () => {
     const menuItems = <>
         <li><Link to={'/'}>Home</Link></li>
         <li><Link to={'/categories'}>Category</Link></li>
-        {
-            user?.uid && loadUserType === "buyer" &&
-            <>
-                <li><Link to={'/buyer-myOrder'}>My Orders</Link></li>
-                <li><Link to={'/buyer-wishlist'}>WishList</Link></li>
-                <li><Link to={'/buyer-dashboard'}>Dashboard</Link></li>
-            </>
-        }
-        {
-            user?.uid && loadUserType === "seller" &&
-            <>
-                <li><Link to={'/seller-addAProduct'}>Add A Product</Link></li>
-                <li><Link to={'/seller-myProduct'}>My Products</Link></li>
-                <li><Link to={'/seller-myBuyers'}>My Buyers</Link></li>
-            </>
-        }
-        {
-            user?.uid && loadUserType === "admin" &&
-            <>
-                <li><Link to={'/admin-allSellers'}>All Sellers</Link></li>
-                <li><Link to={'/admin-allBuyers'}>All Buyers</Link></li>
-                <li><Link to={'/admin-reportedItems'}>Reported Items</Link></li>
-            </>
-        }
-        <li><Link to={'/about'}>About</Link></li>
         <li><Link to={'/blog'}>Blog</Link></li>
         {
             user?.uid ?
-                <li><button onClick={handleLogOut}>Sign out</button></li>
+                <>
+                    <li><Link to={'/dashboard'}>DashBoard</Link></li>
+                    <li><button onClick={handleLogOut}>Sign out</button></li>
+                </>
                 : <li><Link to={'/login'}>Login</Link></li>
         }
     </>;
@@ -67,15 +46,22 @@ const Navbar = () => {
                         {menuItems}
                     </ul>
                 </div>
-                <Link to={'/'} className="btn btn-ghost normal-case text-xl">Buy Old Phone</Link>
+                <Link to={'/'} className="btn btn-ghost normal-case text-xl">
+                    Buy Old Phone
+                    {
+                        user?.uid && loadUserType !== "not found" && <span className="badge badge- ml-1">
+                            {loadUserType}
+                        </span>
+                    }
+                </Link>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal p-0">
                     {menuItems}
                 </ul>
             </div>
-            <label htmlFor="dashboard-drawer" tabIndex={2} className="btn btn-ghost lg:hidden">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+            <label htmlFor="dashboard-drawer" className="btn btn-ghost drawer-button lg:hidden">
+                <AiOutlineMenuFold />
             </label>
         </div>
     );
