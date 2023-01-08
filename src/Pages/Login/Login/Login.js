@@ -92,7 +92,7 @@ const Login = () => {
                     <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
                         <div className="card-body">
                             <form onSubmit={handleSubmit(handleLogin)}>
-                                <div className="form-control">
+                                <div className="form-control w-full max-w-xs">
                                     <label className="label">
                                         <span className="label-text">Email</span>
                                     </label>
@@ -102,13 +102,13 @@ const Login = () => {
                                             required: "Email Address is Required"
                                         })
                                         }
-                                        placeholder="email" className="input input-bordered" />
+                                        placeholder="email" className="input input-bordered w-full max-w-xs" />
                                     {
                                         errors.email &&
                                         <p className='text-error'>{errors.email?.message}</p>
                                     }
                                 </div>
-                                <div className="form-control">
+                                <div className="form-control w-full max-w-xs">
                                     <label className="label">
                                         <span className="label-text">Password</span>
                                     </label>
@@ -119,7 +119,7 @@ const Login = () => {
                                             minLength: { value: 6, message: 'Password must be 6 character or longer' }
                                         })
                                         }
-                                        placeholder="password" className="input input-bordered" />
+                                        placeholder="password" className="input input-bordered w-full max-w-xs" />
                                     {
                                         errors.password &&
                                         <p className='text-error'>{errors.password?.message}</p>
@@ -129,7 +129,7 @@ const Login = () => {
                                     </label>
                                 </div>
 
-                                <div className="form-control mt-6">
+                                <div className="form-control w-full max-w-xs mt-6">
                                     <button className="btn btn-primary">Login</button>
                                 </div>
 

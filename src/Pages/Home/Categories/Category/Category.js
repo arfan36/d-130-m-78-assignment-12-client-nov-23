@@ -10,7 +10,7 @@ const Category = ({ category }) => {
                 <div className="card-body">
                     <h2 className="card-title justify-center mb-6">{categoryName}</h2>
                     <div className="card-actions justify-center">
-                        <Link to={`/category/${categoryId}`}><button className="btn btn-primary">All Phone</button></Link>
+                        <Link to={`/category/${categoryName}`}><button className="btn btn-primary">All Phone</button></Link>
                     </div>
                 </div>
             </div>

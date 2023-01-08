@@ -98,7 +98,7 @@ const SignUp = () => {
                     <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
                         <div className="card-body">
                             <form onSubmit={handleSubmit(handleSignUp)}>
-                                <div className="form-control">
+                                <div className="form-control w-full max-w-xs">
                                     <label className="label">
                                         <span className="label-text">Name</span>
                                     </label>
@@ -108,13 +108,13 @@ const SignUp = () => {
                                             required: "Name is Required"
                                         })
                                         }
-                                        placeholder="name" className="input input-bordered" />
+                                        placeholder="name" className="input input-bordered w-full max-w-xs" />
                                     {
                                         errors.name &&
                                         <p className='text-error'>{errors.name?.message}</p>
                                     }
                                 </div>
-                                <div className="form-control">
+                                <div className="form-control w-full max-w-xs">
                                     <label className="label">
                                         <span className="label-text">Email</span>
                                     </label>
@@ -124,13 +124,13 @@ const SignUp = () => {
                                             required: "Email Address is Required"
                                         })
                                         }
-                                        placeholder="email" className="input input-bordered" />
+                                        placeholder="email" className="input input-bordered w-full max-w-xs" />
                                     {
                                         errors.email &&
                                         <p className='text-error'>{errors.email?.message}</p>
                                     }
                                 </div>
-                                <div className="form-control">
+                                <div className="form-control w-full max-w-xs">
                                     <label className="label">
                                         <span className="label-text">Password</span>
                                     </label>
@@ -148,7 +148,7 @@ const SignUp = () => {
                                             }
                                         })
                                         }
-                                        placeholder="password" className="input input-bordered" />
+                                        placeholder="password" className="input input-bordered w-full max-w-xs" />
                                     {
                                         errors.password &&
                                         <p className='text-error'>{errors.password?.message}</p>
@@ -158,20 +158,20 @@ const SignUp = () => {
                                     </label>
                                 </div>
 
-                                <div className='form-control'>
+                                <div className='form-control w-full max-w-xs'>
                                     <label className="label">
                                         <span className="label-text">User Type</span>
                                     </label>
                                     <select
                                         {...register("userType")}
-                                        className="input input-bordered"
+                                        className="input input-bordered w-full max-w-xs"
                                     >
                                         <option value="buyer">Buyer</option>
                                         <option value="seller">Seller</option>
                                     </select>
                                 </div>
 
-                                <div className="form-control mt-6">
+                                <div className="form-control w-full max-w-xs mt-6">
                                     <button className="btn btn-primary">signUp</button>
                                 </div>
                                 <div>
