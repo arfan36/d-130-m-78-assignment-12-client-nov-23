@@ -34,7 +34,6 @@ const AddAProduct = () => {
             category,
             productDescription,
             purchaseYear,
-            uploadDate,
             mobileNumber,
             location
         } = data;
@@ -64,13 +63,14 @@ const AddAProduct = () => {
                         productDescription,
                         purchaseYear,
                         phoneImage: imageData.data.url,
-                        uploadDate,
+                        uploadDate: new Date().toJSON().slice(0, 10),
                         sellerName: user?.displayName,
                         mobileNumber,
                         sellerEmail: user?.email,
                         location
                     };
                     console.log("🚀 ~ product", product);
+
                 }
             });
     };
@@ -181,10 +181,10 @@ const AddAProduct = () => {
                         <p className='text-error'>{errors.productDescription?.message}</p>
                     }
                 </div>
-                {/* #7 Year of Purchase -----------------------------------*/}
+                {/* #7 Purchasing Year -----------------------------------*/}
                 <div className="form-control w-full max-w-xs">
                     <label className="label">
-                        <span className="label-text">#7 Year of Purchase</span>
+                        <span className="label-text">#7 Purchasing Year</span>
                     </label>
                     <input type="date"
                         {
@@ -215,41 +215,10 @@ const AddAProduct = () => {
                         <p className='text-error'>{errors.phoneImage?.message}</p>
                     }
                 </div>
-                {/* #9 Upload date ----------------------------------- */}
+                {/* #9 Seller Mobile Number -----------------------------------*/}
                 <div className="form-control w-full max-w-xs">
                     <label className="label">
-                        <span className="label-text">#9 Upload date</span>
-                    </label>
-                    <input type="text"
-                        className="input input-bordered w-full max-w-xs"
-                        defaultValue={new Date().toJSON().slice(0, 10)} disabled />
-                    {
-                        errors.uploadDate &&
-                        <p className='text-error'>{errors.uploadDate?.message}</p>
-                    }
-                </div>
-
-                {/* #10 Seller Name -----------------------------------*/}
-                <div className="form-control w-full max-w-xs">
-                    <label className="label">
-                        <span className="label-text">#10 Seller Name</span>
-                    </label>
-                    <input type="text"
-                        {
-                        ...register("sellerName")
-                        }
-                        placeholder="seller name"
-                        className="input input-bordered w-full max-w-xs"
-                        defaultValue={user?.displayName} disabled />
-                    {
-                        errors.sellerName &&
-                        <p className='text-error'>{errors.sellerName?.message}</p>
-                    }
-                </div>
-                {/* #11 Seller Mobile Number -----------------------------------*/}
-                <div className="form-control w-full max-w-xs">
-                    <label className="label">
-                        <span className="label-text">#11 Seller Mobile Number</span>
+                        <span className="label-text">#9 Seller Mobile Number</span>
                     </label>
                     <input type="number"
                         {
@@ -263,27 +232,10 @@ const AddAProduct = () => {
                         <p className='text-error'>{errors.mobileNumber?.message}</p>
                     }
                 </div>
-                {/* #12 Seller Email Address ----------------------------------- */}
+                {/* #10 Location -----------------------------------*/}
                 <div className="form-control w-full max-w-xs">
                     <label className="label">
-                        <span className="label-text">#12 Seller Email Address</span>
-                    </label>
-                    <input type="email"
-                        {
-                        ...register("sellerEmail")
-                        }
-                        placeholder="seller email address"
-                        className="input input-bordered w-full max-w-xs"
-                        defaultValue={user?.email} disabled />
-                    {
-                        errors.sellerEmail &&
-                        <p className='text-error'>{errors.sellerEmail?.message}</p>
-                    }
-                </div>
-                {/* #13 Location -----------------------------------*/}
-                <div className="form-control w-full max-w-xs">
-                    <label className="label">
-                        <span className="label-text">#13 Location</span>
+                        <span className="label-text">#10 Location</span>
                     </label>
                     <input type="text"
                         {
