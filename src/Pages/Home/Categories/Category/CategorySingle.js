@@ -6,13 +6,13 @@ import BookingModal from './BookingModal';
 import CategoryDetails from './CategoryDetails';
 
 const CategorySingle = () => {
-    const loadCategoryId = useLoaderData();
+    const loadCategoryName = useLoaderData();
     const [bookedPhone, set_bookedPhone] = useState(null);
 
     const { data: categorySingles, refetch, isLoading } = useQuery({
-        queryKey: ['categoryId'],
+        queryKey: ['categoryName'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:7000/category/${loadCategoryId}`);
+            const res = await fetch(`http://localhost:7000/products/${loadCategoryName}`);
             const data = await res.json();
             return data;
         }
