@@ -1,6 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthProvider';
 import Loading from '../../Shared/Loading/Loading';
 
@@ -9,6 +11,7 @@ const AddAProduct = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
 
     const imageHostKey = process.env.REACT_APP_imgBB_key;
+    const navigate = useNavigate();
 
     // ─── Load Only Category Name ────────────────────────────────
     const { data: categories, isLoading, } = useQuery({
@@ -27,17 +30,16 @@ const AddAProduct = () => {
     // ─── Handle Add A Product ────────────────────────────────────────────
     const handleAddProduct = (data) => {
         const {
-            productName,
-            productPrice,
+            phoneName,
+            originalPrice,
             resalePrice,
             productCondition,
-            category,
+            categoryName,
             productDescription,
-            purchaseYear,
+            purchaseDate,
             mobileNumber,
             location
         } = data;
-        console.log("🚀 ~ data", data);
 
         const image = data.phoneImage[0];
 
@@ -55,15 +57,15 @@ const AddAProduct = () => {
                     // ─── Product Info ────────────────────
                     const product =
                     {
-                        productName,
-                        productPrice,
+                        phoneName,
+                        originalPrice,
                         resalePrice,
                         productCondition,
-                        category,
+                        categoryName,
                         productDescription,
-                        purchaseYear,
+                        purchaseDate,
                         phoneImage: imageData.data.url,
-                        uploadDate: new Date().toJSON().slice(0, 10),
+                        postedTime: new Date().toJSON().slice(0, 10),
                         sellerName: user?.displayName,
                         mobileNumber,
                         sellerEmail: user?.email,
@@ -71,6 +73,21 @@ const AddAProduct = () => {
                     };
                     console.log("🚀 ~ product", product);
 
+                    // save product info to the database
+                    fetch(`http://localhost:7000/products`, {
+                        method: 'POST',
+                        headers: {
+                            'content-type': 'application/json',
+                            authorization: `Bearer ${localStorage.getItem('accessToken')}`
+                        },
+                        body: JSON.stringify(product)
+                    })
+                        .then(res => res.json())
+                        .then(result => {
+                            console.log("🚀 ~ result", result);
+                            toast.success(`${phoneName} is added successfully`);
+                            navigate('/dashboard/seller-myProducts');
+                        });
                 }
             });
     };
@@ -79,44 +96,44 @@ const AddAProduct = () => {
         <div className='w-96 p-7'>
             <h2 className="text-3xl">Add A Product</h2>
             <form onSubmit={handleSubmit(handleAddProduct)}>
-                {/* #1 Product Name ------------------------------------ */}
+                {/* #1 Phone Name ------------------------------------ */}
                 <div className="form-control w-full max-w-xs">
                     <label className="label">
-                        <span className="label-text">#1 Product Name</span>
+                        <span className="label-text">#1 Phone Name</span>
                     </label>
                     <input type="text"
                         {
-                        ...register("productName", {
-                            required: "Product Name is Required"
+                        ...register("phoneName", {
+                            required: "Phone Name is Required"
                         })
                         }
                         placeholder="product name" className="input input-bordered w-full max-w-xs" />
                     {
-                        errors.productName &&
-                        <p className='text-error'>{errors.productName?.message}</p>
+                        errors.phoneName &&
+                        <p className='text-error'>{errors.phoneName?.message}</p>
                     }
                 </div>
-                {/* #2 Product Price -----------------------------------*/}
+                {/* #2 Original Price -----------------------------------*/}
                 <div className="form-control w-full max-w-xs">
                     <label className="label">
-                        <span className="label-text">#2 Product Price ($)</span>
+                        <span className="label-text">#2 Original Price ($)</span>
                     </label>
                     <input type="number"
                         {
-                        ...register("productPrice", {
-                            required: "Product Price is Required"
+                        ...register("originalPrice", {
+                            required: "Original Price is Required"
                         })
                         }
                         placeholder="product price" className="input input-bordered w-full max-w-xs" />
                     {
-                        errors.productPrice &&
-                        <p className='text-error'>{errors.productPrice?.message}</p>
+                        errors.originalPrice &&
+                        <p className='text-error'>{errors.originalPrice?.message}</p>
                     }
                 </div>
-                {/* #3 Product Resale Price -----------------------------------*/}
+                {/* #3 Resale Price -----------------------------------*/}
                 <div className="form-control w-full max-w-xs">
                     <label className="label">
-                        <span className="label-text">#3 Product Resale Price ($)</span>
+                        <span className="label-text">#3 Resale Price ($)</span>
                     </label>
                     <input type="number"
                         {
@@ -151,7 +168,7 @@ const AddAProduct = () => {
                         <span className="label-text">#5 Product Category</span>
                     </label>
                     <select
-                        {...register("category")}
+                        {...register("categoryName")}
                         className="input input-bordered w-full max-w-xs"
                     >
                         {
@@ -181,21 +198,21 @@ const AddAProduct = () => {
                         <p className='text-error'>{errors.productDescription?.message}</p>
                     }
                 </div>
-                {/* #7 Purchasing Year -----------------------------------*/}
+                {/* #7 Purchasing Date -----------------------------------*/}
                 <div className="form-control w-full max-w-xs">
                     <label className="label">
-                        <span className="label-text">#7 Purchasing Year</span>
+                        <span className="label-text">#7 Purchasing Date</span>
                     </label>
                     <input type="date"
                         {
-                        ...register("purchaseYear", {
-                            required: "Purchasing Year is Required"
+                        ...register("purchaseDate", {
+                            required: "Purchasing Date is Required"
                         })
                         }
                         placeholder="year of purchase" className="input input-bordered w-full max-w-xs" />
                     {
-                        errors.purchaseYear &&
-                        <p className='text-error'>{errors.purchaseYear?.message}</p>
+                        errors.purchaseDate &&
+                        <p className='text-error'>{errors.purchaseDate?.message}</p>
                     }
                 </div>
                 {/* #8 Phone Image ----------------------------------- */}

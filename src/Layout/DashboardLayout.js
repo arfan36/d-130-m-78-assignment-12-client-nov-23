@@ -42,7 +42,7 @@ const DashboardLayout = () => {
                             user?.uid && loadUserType === "seller" &&
                             <>
                                 <li><Link to={'/dashboard/seller-addAProduct'}>Add A Product</Link></li>
-                                <li><Link to={'/dashboard/seller-myProduct'}>My Products</Link></li>
+                                <li><Link to={'/dashboard/seller-myProducts'}>My Products</Link></li>
                                 <li><Link to={'/dashboard/seller-myBuyers'}>My Buyers</Link></li>
                             </>
                         }
