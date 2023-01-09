@@ -37,6 +37,7 @@ const AddAProduct = () => {
             categoryName,
             productDescription,
             purchaseDate,
+            yearsOfUse,
             mobileNumber,
             location
         } = data;
@@ -64,6 +65,7 @@ const AddAProduct = () => {
                         categoryName,
                         productDescription,
                         purchaseDate,
+                        yearsOfUse,
                         phoneImage: imageData.data.url,
                         postedTime: new Date().toJSON().slice(0, 10),
                         sellerName: user?.displayName,
@@ -215,10 +217,27 @@ const AddAProduct = () => {
                         <p className='text-error'>{errors.purchaseDate?.message}</p>
                     }
                 </div>
-                {/* #8 Phone Image ----------------------------------- */}
+                {/* #8 Years of Use -----------------------------------*/}
                 <div className="form-control w-full max-w-xs">
                     <label className="label">
-                        <span className="label-text">#8 Phone Image</span>
+                        <span className="label-text">#8 Years of Use</span>
+                    </label>
+                    <input type="text"
+                        {
+                        ...register("yearsOfUse", {
+                            required: "Years of Use is Required"
+                        })
+                        }
+                        placeholder="year of purchase" className="input input-bordered w-full max-w-xs" />
+                    {
+                        errors.yearsOfUse &&
+                        <p className='text-error'>{errors.yearsOfUse?.message}</p>
+                    }
+                </div>
+                {/* #9 Phone Image ----------------------------------- */}
+                <div className="form-control w-full max-w-xs">
+                    <label className="label">
+                        <span className="label-text">#9 Phone Image</span>
                     </label>
                     <input type="file"
                         {
@@ -232,10 +251,10 @@ const AddAProduct = () => {
                         <p className='text-error'>{errors.phoneImage?.message}</p>
                     }
                 </div>
-                {/* #9 Seller Mobile Number -----------------------------------*/}
+                {/* #10 Seller Mobile Number -----------------------------------*/}
                 <div className="form-control w-full max-w-xs">
                     <label className="label">
-                        <span className="label-text">#9 Seller Mobile Number</span>
+                        <span className="label-text">#10 Seller Mobile Number</span>
                     </label>
                     <input type="number"
                         {
@@ -249,10 +268,10 @@ const AddAProduct = () => {
                         <p className='text-error'>{errors.mobileNumber?.message}</p>
                     }
                 </div>
-                {/* #10 Location -----------------------------------*/}
+                {/* #11 Location -----------------------------------*/}
                 <div className="form-control w-full max-w-xs">
                     <label className="label">
-                        <span className="label-text">#10 Location</span>
+                        <span className="label-text">#11 Location</span>
                     </label>
                     <input type="text"
                         {

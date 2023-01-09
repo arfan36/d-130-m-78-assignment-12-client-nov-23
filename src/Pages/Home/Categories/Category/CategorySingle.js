@@ -25,14 +25,17 @@ const CategorySingle = () => {
 
     return (
         <>
-            <div className='grid grid-cols-1 md:grid-cols-2 gap-6 justify-items-center'>
-                {
-                    categorySingles.map(phoneDetails => <CategoryDetails
-                        key={phoneDetails._id}
-                        phoneDetails={phoneDetails}
-                        set_bookedPhone={set_bookedPhone}
-                    ></CategoryDetails>)
-                }
+            <div>
+                <h2 className="text-3xl text-center">Total : {categorySingles.length}</h2>
+                <div className='grid grid-cols-1 md:grid-cols-2 gap-6 justify-items-center'>
+                    {
+                        categorySingles.map(phoneDetails => <CategoryDetails
+                            key={phoneDetails._id}
+                            phoneDetails={phoneDetails}
+                            set_bookedPhone={set_bookedPhone}
+                        ></CategoryDetails>)
+                    }
+                </div>
             </div>
             <div>
                 {

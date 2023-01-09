@@ -1,7 +1,7 @@
 import React from 'react';
-import { MdVerified } from "react-icons/md";
+import { MdVerified } from 'react-icons/md';
 
-const CategoryDetails = ({ phoneDetails, set_bookedPhone }) => {
+const SingleItems = ({ phoneDetails, set_bookedPhone }) => {
     const {
         categoryName,
         location,
@@ -49,7 +49,7 @@ const CategoryDetails = ({ phoneDetails, set_bookedPhone }) => {
                     <p>Location: <span className='font-bold'>{location}</span></p>
 
                     <div className="card-actions">
-                        <label htmlFor="phone-booking-modal" onClick={() => set_bookedPhone(phoneDetails)} className="btn btn-primary">Book Now</label>
+                        {/* <label htmlFor="phone-booking-modal" onClick={() => set_bookedPhone(phoneDetails)} className="btn btn-primary">Book Now</label> */}
                     </div>
                 </div>
             </div>
@@ -57,4 +57,4 @@ const CategoryDetails = ({ phoneDetails, set_bookedPhone }) => {
     );
 };
 
-export default CategoryDetails;
+export default SingleItems;

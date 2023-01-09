@@ -4,6 +4,7 @@ import Main from "../../Layout/Main";
 import DashBoard from "../../Pages/DashBoard/Dashboard/DashBoard";
 import AddAProduct from "../../Pages/DashBoard/Seller/AddAProduct";
 import MyProducts from "../../Pages/DashBoard/Seller/MyProducts";
+import SeeAll from "../../Pages/Home/Advertised/SeeAll";
 import Categories from "../../Pages/Home/Categories/Categories/Categories";
 import Category from "../../Pages/Home/Categories/Category/Category";
 import CategorySingle from "../../Pages/Home/Categories/Category/CategorySingle";
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
             {
                 path: '/signup',
                 element: <SignUp></SignUp>
+            },
+            {
+                path: '/see-all',
+                element: <SeeAll></SeeAll>
             },
             {
                 path: '/categories',

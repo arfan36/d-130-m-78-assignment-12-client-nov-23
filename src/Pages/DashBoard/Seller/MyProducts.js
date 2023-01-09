@@ -48,6 +48,22 @@ const MyProducts = () => {
         }).catch(err => console.error('err', err));
     };
 
+    // handle Advertise
+    const handleAdvertise = (product) => {
+        fetch(`http://localhost:7000/products/${product._id}`, {
+            method: 'POST',
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('accessToken')}`
+            }
+        }).then(res => res.json()).then(data => {
+            console.log('data :>> ', data);
+            if (data.modifiedCount > 0) {
+                refetch();
+                toast.success(`product ${product.phoneName} advertised successfully`);
+            }
+        }).catch(err => console.error('err', err));
+    };
+
     // if Loading
     if (isLoading) {
         return <Loading></Loading>;
@@ -55,7 +71,7 @@ const MyProducts = () => {
 
     return (
         <div>
-            <h2 className="text-3xl">My Products: {products?.length}</h2>
+            <h2 className="text-3xl mb-2 text-center">My Products: {products?.length}</h2>
             <div className="overflow-x-auto">
                 <table className="table w-full">
                     {/* <!-- head --> */}
@@ -89,18 +105,22 @@ const MyProducts = () => {
                                     }
                                     {
                                         product.paid &&
-                                        <>Sold</>
+                                        <p className='bg-success text-center rounded-xl'>Sold</p>
                                     }
                                 </td>
-                                <td>{product.resalePrice}</td>
+                                <td>${product.resalePrice}</td>
                                 <td>
                                     {/* The button to open modal */}
                                     <label onClick={() => set_deletingProduct(product)} htmlFor="confirmation-modal" className="btn btn-sm btn-error">Delete</label>
                                 </td>
                                 <td>
                                     {
-                                        !product.paid &&
-                                        <button className='btn btn-ghost btn-sm'>Advertise</button>
+                                        !product.paid && !product.advertised &&
+                                        <button onClick={() => handleAdvertise(product)} className='btn btn-ghost btn-sm'>Hit</button>
+                                    }
+                                    {
+                                        !product.paid && product.advertised &&
+                                        <p className='bg-success text-center rounded-xl'>Advertised</p>
                                     }
                                 </td>
                             </tr>)
