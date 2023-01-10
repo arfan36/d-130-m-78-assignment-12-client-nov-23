@@ -1,7 +1,10 @@
 import React from 'react';
 import { MdVerified } from 'react-icons/md';
+import useSeller from '../../../hooks/useSeller';
+import Loading from '../../Shared/Loading/Loading';
 
 const SingleItems = ({ phoneDetails, set_bookedPhone }) => {
+
     const {
         categoryName,
         location,
@@ -17,8 +20,16 @@ const SingleItems = ({ phoneDetails, set_bookedPhone }) => {
         sellerEmail,
         sellerName,
         yearsOfUse,
-        verifiedSellerStatus,
+        // verifiedSellerStatus,
+        // paid
     } = phoneDetails;
+
+    // get seller info 
+    const [seller, isSellerLoading] = useSeller(sellerEmail);
+    if (isSellerLoading) {
+        return <Loading></Loading>;
+    }
+
     return (
         <div>
             <div className="card bg-base-100 shadow-xl">
@@ -39,7 +50,7 @@ const SingleItems = ({ phoneDetails, set_bookedPhone }) => {
                         <p> Seller Name: <span className='font-bold'>{sellerName}</span></p>
                         <p className='text-info'>
                             {
-                                verifiedSellerStatus === "true" &&
+                                seller?.verifiedSellerStatus &&
                                 <MdVerified></MdVerified>
                             }
                         </p>
@@ -49,7 +60,10 @@ const SingleItems = ({ phoneDetails, set_bookedPhone }) => {
                     <p>Location: <span className='font-bold'>{location}</span></p>
 
                     <div className="card-actions">
-                        {/* <label htmlFor="phone-booking-modal" onClick={() => set_bookedPhone(phoneDetails)} className="btn btn-primary">Book Now</label> */}
+                        <label htmlFor="phone-booking-modal" onClick={() => set_bookedPhone(phoneDetails)} className="btn btn-primary"
+                        >
+                            Book Now
+                        </label>
                     </div>
                 </div>
             </div>

@@ -1,5 +1,7 @@
 import React from 'react';
 import { MdVerified } from "react-icons/md";
+import useSeller from '../../../../hooks/useSeller';
+import Loading from '../../../Shared/Loading/Loading';
 
 const CategoryDetails = ({ phoneDetails, set_bookedPhone }) => {
     const {
@@ -17,8 +19,16 @@ const CategoryDetails = ({ phoneDetails, set_bookedPhone }) => {
         sellerEmail,
         sellerName,
         yearsOfUse,
-        verifiedSellerStatus,
+        // verifiedSellerStatus,
+        paid
     } = phoneDetails;
+
+    // get seller info
+    const [seller, isSellerLoading] = useSeller(sellerEmail);
+    if (isSellerLoading) {
+        return <Loading></Loading>;
+    }
+
     return (
         <div>
             <div className="card bg-base-100 shadow-xl">
@@ -39,8 +49,10 @@ const CategoryDetails = ({ phoneDetails, set_bookedPhone }) => {
                         <p> Seller Name: <span className='font-bold'>{sellerName}</span></p>
                         <p className='text-info'>
                             {
-                                verifiedSellerStatus === "true" &&
-                                <MdVerified></MdVerified>
+                                seller?.verifiedSellerStatus &&
+                                <>
+                                    <MdVerified></MdVerified>
+                                </>
                             }
                         </p>
                     </div>
@@ -49,7 +61,17 @@ const CategoryDetails = ({ phoneDetails, set_bookedPhone }) => {
                     <p>Location: <span className='font-bold'>{location}</span></p>
 
                     <div className="card-actions">
-                        <label htmlFor="phone-booking-modal" onClick={() => set_bookedPhone(phoneDetails)} className="btn btn-primary">Book Now</label>
+                        {
+                            !paid &&
+                            <label htmlFor="phone-booking-modal" onClick={() => set_bookedPhone(phoneDetails)} className="btn btn-primary"
+                            >
+                                Book Now
+                            </label>
+                        }
+                        {
+                            paid &&
+                            <p className='bg-success text-center rounded-2xl px-4 py-3'>Sold</p>
+                        }
                     </div>
                 </div>
             </div>

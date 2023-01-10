@@ -1,11 +1,18 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import Loading from '../../Shared/Loading/Loading';
+import BookingModal from '../Categories/Category/BookingModal';
 import SingleItems from './SingleItems';
 
 const SeeAll = () => {
     const [bookedPhone, set_bookedPhone] = useState(null);
-    const { data: allAdvertisedItems, isLoading } = useQuery({
+
+    // handle close modal
+    const closeModal = () => {
+        set_bookedPhone(null);
+    };
+
+    const { data: allAdvertisedItems, isLoading, refetch } = useQuery({
         queryKey: ['advertisedItems'],
         queryFn: async () => {
             const res = await fetch(`http://localhost:7000/advertised`, {
@@ -17,6 +24,11 @@ const SeeAll = () => {
             return data;
         }
     });
+
+    // handle Booked Phone
+    const handleBookedPhone = (phone) => {
+        console.log(phone);
+    };
 
     if (isLoading) {
         return <Loading></Loading>;
@@ -32,6 +44,15 @@ const SeeAll = () => {
                         phoneDetails={phoneDetails}
                         set_bookedPhone={set_bookedPhone}
                     ></SingleItems>)
+                }
+            </div>
+            <div>
+                {
+                    bookedPhone && <BookingModal
+                        modalData={bookedPhone}
+                        successAction={handleBookedPhone}
+                        closeModal={closeModal}
+                    ></BookingModal>
                 }
             </div>
         </div>

@@ -9,14 +9,28 @@ const CategorySingle = () => {
     const loadCategoryName = useLoaderData();
     const [bookedPhone, set_bookedPhone] = useState(null);
 
+    // handle close modal
+    const closeModal = () => {
+        set_bookedPhone(null);
+    };
+
     const { data: categorySingles, refetch, isLoading } = useQuery({
         queryKey: ['categoryName'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:7000/products/${loadCategoryName}`);
+            const res = await fetch(`http://localhost:7000/products/${loadCategoryName}`, {
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem('accessToken')}`
+                }
+            });
             const data = await res.json();
             return data;
         }
     });
+
+    // handle booked phone
+    const handleBookedPhone = (phone) => {
+        console.log(phone);
+    };
 
     if (isLoading) {
         return <Loading></Loading>;
@@ -41,9 +55,9 @@ const CategorySingle = () => {
                 {
                     bookedPhone &&
                     <BookingModal
-                        bookedPhone={bookedPhone}
-                        set_bookedPhone={set_bookedPhone}
-                        refetch={refetch}
+                        modalData={bookedPhone}
+                        successAction={handleBookedPhone}
+                        closeModal={closeModal}
                     ></BookingModal>
                 }
             </div>

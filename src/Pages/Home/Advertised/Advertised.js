@@ -1,18 +1,41 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Loading from '../../Shared/Loading/Loading';
+import BookingModal from '../Categories/Category/BookingModal';
 import AdvertisedItems from './AdvertisedItems';
 
 const Advertised = () => {
+    const [bookedPhone, set_bookedPhone] = useState(null);
+
+    // handle close modal
+    const closeModal = () => {
+        set_bookedPhone(null);
+    };
+
     // get advertised items
-    const { data: advertisedItems } = useQuery({
+    const { data: advertisedItems, isLoading, refetch } = useQuery({
         queryKey: ['advertised-limit'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:7000/advertised-limit`);
+            const res = await fetch(`http://localhost:7000/advertised-limit`, {
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem('accessToken')}`
+                }
+            });
             const data = await res.json();
             return data;
         }
     });
+
+    // handle booked phone
+    const handleBookedPhone = (phone) => {
+        console.log(phone);
+    };
+
+    if (isLoading) {
+        return <Loading></Loading>;
+    }
+
     return (
         <div>
             <h2 className="text-3xl text-center mt-16">Advertised items</h2>
@@ -21,7 +44,17 @@ const Advertised = () => {
                     advertisedItems?.map(item => <AdvertisedItems
                         key={item._id}
                         item={item}
+                        set_bookedPhone={set_bookedPhone}
                     ></AdvertisedItems>)
+                }
+            </div>
+            <div>
+                {
+                    bookedPhone && <BookingModal
+                        modalData={bookedPhone}
+                        successAction={handleBookedPhone}
+                        closeModal={closeModal}
+                    ></BookingModal>
                 }
             </div>
             <div className='text-end'>

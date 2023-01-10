@@ -42,7 +42,9 @@ const router = createBrowserRouter([
             },
             {
                 path: '/see-all',
-                element: <SeeAll></SeeAll>
+                element: <PrivateRoute>
+                    <SeeAll></SeeAll>
+                </PrivateRoute>
             },
             {
                 path: '/categories',

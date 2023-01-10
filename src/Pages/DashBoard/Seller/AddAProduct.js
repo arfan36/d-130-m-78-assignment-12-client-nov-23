@@ -17,7 +17,11 @@ const AddAProduct = () => {
     const { data: categories, isLoading, } = useQuery({
         queryKey: ['category-names'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:7000/category-names`);
+            const res = await fetch(`http://localhost:7000/category-names`, {
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem('accessToken')}`
+                }
+            });
             const data = await res.json();
             return data;
         }
@@ -228,7 +232,7 @@ const AddAProduct = () => {
                             required: "Years of Use is Required"
                         })
                         }
-                        placeholder="year of purchase" className="input input-bordered w-full max-w-xs" />
+                        placeholder="Uses Time" className="input input-bordered w-full max-w-xs" />
                     {
                         errors.yearsOfUse &&
                         <p className='text-error'>{errors.yearsOfUse?.message}</p>
