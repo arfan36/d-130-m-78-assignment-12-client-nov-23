@@ -7,6 +7,7 @@ import DashBoard from "../../Pages/DashBoard/Dashboard/DashBoard";
 import AddAProduct from "../../Pages/DashBoard/Seller/AddAProduct";
 import MyProducts from "../../Pages/DashBoard/Seller/MyProducts";
 import SeeAll from "../../Pages/Home/Advertised/SeeAll";
+import Blog from "../../Pages/Home/Blog/Blog";
 import Categories from "../../Pages/Home/Categories/Categories/Categories";
 import Category from "../../Pages/Home/Categories/Category/Category";
 import CategorySingle from "../../Pages/Home/Categories/Category/CategorySingle";
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
             {
                 path: '/signup',
                 element: <SignUp></SignUp>
+            },
+            {
+                path: '/blog',
+                element: <Blog></Blog>
             },
             {
                 path: '/see-all',
