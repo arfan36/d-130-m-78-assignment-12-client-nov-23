@@ -130,9 +130,12 @@ const MyProducts = () => {
             </div>
             {
                 deletingProduct && <ConfirmationModal
+                    title={`Are you sure you want to delete?`}
+                    message={`If you delete ${deletingProduct.phoneName}. It can't be undone.`}
+                    successAction={handleDeleteProduct}
+                    successButtonName={'Delete'}
                     modalData={deletingProduct}
                     closeModal={closeModal}
-                    successAction={handleDeleteProduct}
                 ></ConfirmationModal>
             }
         </div>

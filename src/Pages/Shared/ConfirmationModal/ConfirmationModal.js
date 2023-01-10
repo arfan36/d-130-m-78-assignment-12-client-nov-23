@@ -1,16 +1,22 @@
 import React from 'react';
 
-const ConfirmationModal = ({ modalData, closeModal, successAction }) => {
+const ConfirmationModal = ({ title, message, successAction, successButtonName, modalData, closeModal }) => {
     return (
         <div>
             {/* Put this part before </body> tag */}
             <input type="checkbox" id="confirmation-modal" className="modal-toggle" />
             <label htmlFor="confirmation-modal" className="modal cursor-pointer">
                 <label className="modal-box relative" htmlFor="">
-                    <h3 className="text-lg font-bold">Are you sure, you want to delete <span className='underline text-2xl text-error'>{modalData.phoneName}</span> ? <br /> It can't be undone.</h3>
+                    <h3 className="text-lg font-bold">
+                        {title}
+                    </h3>
+                    <p className="font-bold">
+                        {message}
+                    </p>
+
                     <div className='modal-action'>
                         <button onClick={closeModal} className="btn btn-outline">Cancel</button>
-                        <label onClick={() => successAction(modalData)} className='btn btn-primary' htmlFor='confirmation-modal'>Delete</label>
+                        <label onClick={() => successAction(modalData)} className='btn btn-primary' htmlFor='confirmation-modal'>{successButtonName}</label>
                     </div>
                 </label>
             </label>
