@@ -97,7 +97,7 @@ const AllSellers = () => {
                                 <td>
                                     {
                                         !seller.verifiedSellerStatus &&
-                                        <button onClick={() => handleVerifiedSellerStatus(seller)} className='btn btn-ghost btn-sm'>Verify</button>
+                                        <button onClick={() => handleVerifiedSellerStatus(seller)} className='btn btn-ghost btn-sm bg-slate-200'>Verify</button>
                                     }
                                     {
                                         seller.verifiedSellerStatus &&

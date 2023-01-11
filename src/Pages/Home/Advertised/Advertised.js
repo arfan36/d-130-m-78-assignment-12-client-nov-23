@@ -28,8 +28,8 @@ const Advertised = () => {
     });
 
     // handle booked phone
-    const handleBookedPhone = (phone) => {
-        console.log(phone);
+    const handleBookedPhone = (phone, formData) => {
+        console.log("phone, formData", phone, formData);
     };
 
     if (isLoading) {

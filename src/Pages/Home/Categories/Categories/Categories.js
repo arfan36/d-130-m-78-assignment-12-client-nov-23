@@ -4,7 +4,11 @@ import Category from '../Category/Category';
 const Categories = () => {
     const [categories, set_categories] = useState([]);
     useEffect(() => {
-        fetch(`http://localhost:7000/category`)
+        fetch(`http://localhost:7000/category`, {
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('accessToken')}`
+            }
+        })
             .then(res => res.json())
             .then(data => set_categories(data));
     }, []);

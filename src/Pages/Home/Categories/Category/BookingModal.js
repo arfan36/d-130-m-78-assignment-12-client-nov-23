@@ -1,8 +1,10 @@
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-hot-toast';
 import { MdClose, MdVerified } from 'react-icons/md';
 import { AuthContext } from '../../../../contexts/AuthProvider';
 import useUser from '../../../../hooks/useUser';
+import Loading from '../../../Shared/Loading/Loading';
 
 const BookingModal = ({ modalData, successAction, closeModal }) => {
     // console.log("🚀 ~ modalData", modalData);
@@ -29,11 +31,19 @@ const BookingModal = ({ modalData, successAction, closeModal }) => {
 
     // handle Booked
     const handleBooked = (data) => {
-        console.log('data :>> ', data);
+        successAction(modalData, data);
     };
 
     // get seller info
     const [seller] = useUser(sellerEmail);
+
+    // get current user info
+    const [currentUser] = useUser(user?.email);
+
+    // open toast
+    const openToast = () => {
+        toast.error(`You are not a Buyer`);
+    };
 
     return (
         <div>
@@ -157,7 +167,7 @@ const BookingModal = ({ modalData, successAction, closeModal }) => {
                             {/* #12 Seller Mobile Number -----------------------------------*/}
                             <div className="form-control w-full max-w-xs">
                                 <label className="label">
-                                    <span className="label-text">#10 Seller Mobile Number</span>
+                                    <span className="label-text">#12 Seller Mobile Number</span>
                                 </label>
                                 <input type="number"
                                     defaultValue={mobileNumber} disabled className="input input-bordered w-full max-w-xs" />
@@ -165,7 +175,7 @@ const BookingModal = ({ modalData, successAction, closeModal }) => {
                             {/* #13 Seller Location -----------------------------------*/}
                             <div className="form-control w-full max-w-xs">
                                 <label className="label">
-                                    <span className="label-text">#11 Seller Location</span>
+                                    <span className="label-text">#13 Seller Location</span>
                                 </label>
                                 <input type="text"
                                     defaultValue={location} disabled className="input input-bordered w-full max-w-xs" />
@@ -187,10 +197,10 @@ const BookingModal = ({ modalData, successAction, closeModal }) => {
                                 <input type="text"
                                     defaultValue={user?.email} disabled className="input input-bordered w-full max-w-xs" />
                             </div>
-                            {/* #17 Buyer Mobile Number */}
+                            {/* #16 Buyer Mobile Number */}
                             <div className="form-control w-full max-w-xs">
                                 <label className="label">
-                                    <span className="label-text">#17 Buyer Mobile Number</span>
+                                    <span className="label-text">#16 Buyer Mobile Number</span>
                                 </label>
                                 <input type="number"
                                     {
@@ -204,10 +214,10 @@ const BookingModal = ({ modalData, successAction, closeModal }) => {
                                     <p className='text-error'>{errors.buyerMobileNumber?.message}</p>
                                 }
                             </div>
-                            {/* #18 Meeting location */}
+                            {/* #17 Meeting location */}
                             <div className="form-control w-full max-w-xs">
                                 <label className="label">
-                                    <span className="label-text">#18 Meeting location</span>
+                                    <span className="label-text">#17 Meeting location</span>
                                 </label>
                                 <input type="text"
                                     {
@@ -223,7 +233,13 @@ const BookingModal = ({ modalData, successAction, closeModal }) => {
                             </div>
 
                             <div className="form-control w-full max-w-xs mt-6">
-                                <button onClick={() => successAction(modalData)} className="btn btn-primary">Submit</button>
+                                {
+                                    currentUser?.userType === "buyer" ?
+                                        <button className="btn btn-primary">Submit</button>
+                                        :
+                                        <p onClick={openToast} className="btn btn-primary"
+                                        >Submit</p>
+                                }
                             </div>
                         </form>
                     </div>
@@ -232,8 +248,18 @@ const BookingModal = ({ modalData, successAction, closeModal }) => {
                     </div>
                     <div className='flex justify-center mt-4'>
                         <div className="btn-group btn-group-vertical lg:btn-group-horizontal">
-                            <button className="btn btn-accent">Add to Wishlist</button>
-                            <button className="btn btn-accent">Report to Admin</button>
+                            {
+                                currentUser?.userType === "buyer" ?
+                                    <>
+                                        <button className="btn btn-accent">Add to Wishlist</button>
+                                        <button className="btn btn-accent">Report to Admin</button>
+                                    </>
+                                    :
+                                    <>
+                                        <button onClick={openToast} className="btn btn-accent">Add to Wishlist</button>
+                                        <button onClick={openToast} className="btn btn-accent">Report to Admin</button>
+                                    </>
+                            }
                         </div>
                     </div>
 
