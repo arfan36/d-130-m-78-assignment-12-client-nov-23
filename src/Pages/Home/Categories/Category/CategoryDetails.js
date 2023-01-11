@@ -1,6 +1,6 @@
 import React from 'react';
 import { MdVerified } from "react-icons/md";
-import useSeller from '../../../../hooks/useSeller';
+import useUser from '../../../../hooks/useUser';
 import Loading from '../../../Shared/Loading/Loading';
 
 const CategoryDetails = ({ phoneDetails, set_bookedPhone }) => {
@@ -24,7 +24,7 @@ const CategoryDetails = ({ phoneDetails, set_bookedPhone }) => {
     } = phoneDetails;
 
     // get seller info
-    const [seller, isSellerLoading] = useSeller(sellerEmail);
+    const [seller, isSellerLoading] = useUser(sellerEmail);
     if (isSellerLoading) {
         return <Loading></Loading>;
     }

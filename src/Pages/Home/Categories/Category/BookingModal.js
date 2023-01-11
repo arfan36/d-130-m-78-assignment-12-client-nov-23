@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
+import { MdClose, MdVerified } from 'react-icons/md';
 import { AuthContext } from '../../../../contexts/AuthProvider';
+import useUser from '../../../../hooks/useUser';
 
 const BookingModal = ({ modalData, successAction, closeModal }) => {
     // console.log("🚀 ~ modalData", modalData);
@@ -30,15 +32,22 @@ const BookingModal = ({ modalData, successAction, closeModal }) => {
         console.log('data :>> ', data);
     };
 
+    // get seller info
+    const [seller] = useUser(sellerEmail);
+
     return (
         <div>
-            {/* Put this part before </body> tag */}
             <input type="checkbox" id="phone-booking-modal" className="modal-toggle" />
-            <label htmlFor="phone-booking-modal" className="modal cursor-pointer">
-                <label className="modal-box relative" htmlFor="">
+            <div className="modal">
+                <div className="modal-box">
 
+
+                    <div className='flex justify-end'>
+                        <button className='btn btn-error btn-sm m-3' onClick={closeModal}>
+                            <MdClose></MdClose>
+                        </button>
+                    </div>
                     <figure><img src={phoneImage} alt="Album" /></figure>
-
                     <div className="flex justify-center w-full">
                         <form onSubmit={handleSubmit(handleBooked)}>
                             {/* #1 phone Name ------------------------------------ */}
@@ -122,8 +131,18 @@ const BookingModal = ({ modalData, successAction, closeModal }) => {
                                 <label className="label">
                                     <span className="label-text">#10 Seller Name</span>
                                 </label>
-                                <input type="text"
-                                    defaultValue={sellerName} disabled className="input input-bordered w-full max-w-xs" />
+                                <div className='flex items-center gap-1'>
+                                    <input type="text"
+                                        defaultValue={sellerName} disabled className="input input-bordered w-full max-w-xs" />
+                                    <p className='text-info'>
+                                        {
+                                            seller?.verifiedSellerStatus &&
+                                            <>
+                                                <MdVerified></MdVerified>
+                                            </>
+                                        }
+                                    </p>
+                                </div>
                             </div>
                             {/* #11 Seller Email -----------------------------------*/}
                             <div className="form-control w-full max-w-xs">
@@ -218,10 +237,13 @@ const BookingModal = ({ modalData, successAction, closeModal }) => {
                         </div>
                     </div>
 
-                </label>
-            </label>
 
 
+                    {/* <div className="modal-action">
+                        <label htmlFor="phone-booking-modal" className="btn">Yay!</label>
+                    </div> */}
+                </div>
+            </div>
 
 
         </div>

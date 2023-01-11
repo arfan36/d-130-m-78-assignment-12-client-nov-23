@@ -14,16 +14,20 @@ const CategorySingle = () => {
         set_bookedPhone(null);
     };
 
-    const { data: categorySingles, refetch, isLoading } = useQuery({
+    const { data: categorySingles, isLoading } = useQuery({
         queryKey: ['categoryName'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:7000/products/${loadCategoryName}`, {
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem('accessToken')}`
-                }
-            });
-            const data = await res.json();
-            return data;
+            try {
+                const res = await fetch(`http://localhost:7000/products/${loadCategoryName}`, {
+                    headers: {
+                        authorization: `Bearer ${localStorage.getItem('accessToken')}`
+                    }
+                });
+                const data = await res.json();
+                return data;
+            } catch (err) {
+                console.error('err', err);
+            }
         }
     });
 

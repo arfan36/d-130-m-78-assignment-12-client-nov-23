@@ -55,11 +55,11 @@ const router = createBrowserRouter([
                 element: <Category></Category>
             },
             {
-                path: '/category/:id',
+                path: '/category/:categoryName',
                 element: <PrivateRoute>
                     <CategorySingle> </CategorySingle>
                 </PrivateRoute>,
-                loader: ({ params }) => params.id
+                loader: ({ params }) => params.categoryName
             },
         ]
     },
