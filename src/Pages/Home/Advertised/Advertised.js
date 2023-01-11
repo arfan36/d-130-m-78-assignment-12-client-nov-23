@@ -1,12 +1,16 @@
 import { useQuery } from '@tanstack/react-query';
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import { toast } from 'react-hot-toast';
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../../contexts/AuthProvider';
 import Loading from '../../Shared/Loading/Loading';
 import BookingModal from '../Categories/Category/BookingModal';
 import AdvertisedItems from './AdvertisedItems';
 
 const Advertised = () => {
     const [bookedPhone, set_bookedPhone] = useState(null);
+    const { user } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     // handle close modal
     const closeModal = () => {
@@ -14,7 +18,7 @@ const Advertised = () => {
     };
 
     // get advertised items
-    const { data: advertisedItems, isLoading, refetch } = useQuery({
+    const { data: advertisedItems, isLoading } = useQuery({
         queryKey: ['advertised-limit'],
         queryFn: async () => {
             const res = await fetch(`http://localhost:7000/advertised-limit`, {
@@ -29,7 +33,27 @@ const Advertised = () => {
 
     // handle booked phone
     const handleBookedPhone = (phone, formData) => {
-        console.log("phone, formData", phone, formData);
+        const { categoryName, location, mobileNumber, originalPrice, phoneImage, phoneName, postedTime, productCondition, productDescription, purchaseDate, resalePrice, sellerEmail, sellerName, yearsOfUse, _id } = phone;
+
+        const { buyerLocation, buyerMobileNumber } = formData;
+
+        const booked = { buyerLocation, buyerMobileNumber, buyerName: user?.displayName, buyerEmail: user?.email, categoryName, location, mobileNumber, originalPrice, phoneImage, phoneName, postedTime, productCondition, productDescription, purchaseDate, resalePrice, sellerEmail, sellerName, yearsOfUse, productId: _id };
+
+        // save info to database
+        fetch(`http://localhost:7000/booked`, {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json',
+                authorization: `Bearer ${localStorage.getItem('accessToken')}`
+            },
+            body: JSON.stringify(booked)
+        }).then(res => res.json()).then(result => {
+            console.log("🚀 ~ result", result);
+            toast.success(`${phoneName} is Booked successfully`);
+            navigate('/dashboard/buyer-myOrder');
+        }).catch(err => console.error('err', err));
+
+
     };
 
     if (isLoading) {

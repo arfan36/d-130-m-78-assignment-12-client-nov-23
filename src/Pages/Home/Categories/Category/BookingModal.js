@@ -4,7 +4,6 @@ import { toast } from 'react-hot-toast';
 import { MdClose, MdVerified } from 'react-icons/md';
 import { AuthContext } from '../../../../contexts/AuthProvider';
 import useUser from '../../../../hooks/useUser';
-import Loading from '../../../Shared/Loading/Loading';
 
 const BookingModal = ({ modalData, successAction, closeModal }) => {
     // console.log("🚀 ~ modalData", modalData);

@@ -27,7 +27,7 @@ const SeeAll = () => {
 
     // handle Booked Phone
     const handleBookedPhone = (phone, formData) => {
-        console.log(phone, formData);
+        // console.log(phone, formData);
     };
 
     if (isLoading) {
