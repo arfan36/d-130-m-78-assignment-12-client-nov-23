@@ -52,8 +52,6 @@ const Advertised = () => {
             toast.success(`${phoneName} is Booked successfully`);
             navigate('/dashboard/buyer-myOrder');
         }).catch(err => console.error('err', err));
-
-
     };
 
     if (isLoading) {
