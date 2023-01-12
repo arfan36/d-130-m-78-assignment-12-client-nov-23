@@ -1,9 +1,11 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useEffect } from 'react';
 import { toast } from 'react-hot-toast';
+import { AuthContext } from '../../../contexts/AuthProvider';
 
 const CheckoutForm = ({ bookedPhone }) => {
+    const { user } = useContext(AuthContext);
     const [clientSecret, set_clientSecret] = useState('');
     const [transactionId, set_transactionId] = useState('');
     const [success, set_success] = useState('');
@@ -12,7 +14,8 @@ const CheckoutForm = ({ bookedPhone }) => {
     const stripe = useStripe();
     const elements = useElements();
 
-    const { _id, productId, phoneName, resalePrice, buyerName, buyerEmail, sellerEmail } = bookedPhone;
+    const { displayName, email } = user;
+    const { _id, phoneImage, phoneName, resalePrice, sellerEmail } = bookedPhone;
 
     // create payment intent as soon as the page loads
     useEffect(() => {
@@ -61,8 +64,8 @@ const CheckoutForm = ({ bookedPhone }) => {
                 payment_method: {
                     card,
                     billing_details: {
-                        name: buyerName,
-                        email: buyerEmail
+                        name: displayName,
+                        email: email
                     }
                 }
             }
@@ -75,13 +78,14 @@ const CheckoutForm = ({ bookedPhone }) => {
 
             // save payment info in the database
             const payment = {
-                price: resalePrice,
-                transactionId: paymentIntent.id,
-                buyerName,
-                buyerEmail,
-                productId,
+                phoneImage,
                 phoneName,
-                bookedId: _id,
+                resalePrice,
+                paid: true,
+                transactionId: paymentIntent.id,
+                buyerName: displayName,
+                buyerEmail: email,
+                productId: _id,
                 sellerEmail
             };
             fetch(`http://localhost:7000/payments`, {

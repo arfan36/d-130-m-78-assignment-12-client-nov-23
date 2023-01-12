@@ -9,12 +9,12 @@ import CheckoutForm from './CheckoutForm';
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PK);
 
 const Payment = () => {
-    const paymentPhoneId = useLoaderData();
+    const phoneId = useLoaderData();
     const { data: bookedPhone, isLoading } = useQuery({
         queryKey: ['bookedPhone'],
         queryFn: async () => {
             try {
-                const res = await fetch(`http://localhost:7000/booked/${paymentPhoneId}`, {
+                const res = await fetch(`http://localhost:7000/phoneInfo/${phoneId}`, {
                     headers: {
                         authorization: `Bearer ${localStorage.getItem('accessToken')}`
                     }

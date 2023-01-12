@@ -63,7 +63,7 @@ const MyOrders = () => {
                                     {
                                         order.resalePrice && !order.paid &&
                                         <Link
-                                            to={`/dashboard/payment/${order._id}`}
+                                            to={`/dashboard/payment/${order.productId}`}
                                         >
                                             <button className='btn btn-ghost bg-slate-200'>pay</button>
                                         </Link>

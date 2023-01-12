@@ -30,9 +30,9 @@ const BookingModal = ({ modalData, successAction, closeModal }) => {
 
     const buyerName = user?.displayName;
     const buyerEmail = user?.email;
-    const phoneId = _id;
+    const productId = _id;
 
-    const productInfo = { phoneId, categoryName, location, mobileNumber, originalPrice, phoneImage, phoneName, postedTime, productCondition, productDescription, purchaseDate, resalePrice, sellerEmail, sellerName, yearsOfUse, buyerName, buyerEmail };
+    const productInfo = { productId, categoryName, location, mobileNumber, originalPrice, phoneImage, phoneName, postedTime, productCondition, productDescription, purchaseDate, resalePrice, sellerEmail, sellerName, yearsOfUse, buyerName, buyerEmail };
 
     // handleWishlist
     const handleWishlist = () => {
