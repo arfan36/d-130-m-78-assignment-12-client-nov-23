@@ -62,7 +62,7 @@ const Advertised = () => {
         <div>
             <h2 className="text-3xl text-center mt-16">Advertised items</h2>
             <div className='grid grid-cols-1 md:grid-cols-2 gap-6 justify-items-center my-8 mx-8'>
-                {
+                {advertisedItems.length > 0 &&
                     advertisedItems?.map(item => <AdvertisedItems
                         key={item._id}
                         item={item}
