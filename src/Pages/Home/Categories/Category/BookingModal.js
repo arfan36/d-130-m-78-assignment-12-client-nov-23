@@ -6,25 +6,9 @@ import { AuthContext } from '../../../../contexts/AuthProvider';
 import useUser from '../../../../hooks/useUser';
 
 const BookingModal = ({ modalData, successAction, closeModal }) => {
-    // console.log("🚀 ~ modalData", modalData);
     const { user } = useContext(AuthContext);
 
-    const {
-        categoryName,
-        location,
-        mobileNumber,
-        originalPrice,
-        phoneImage,
-        phoneName,
-        postedTime,
-        productCondition,
-        productDescription,
-        purchaseDate,
-        resalePrice,
-        sellerEmail,
-        sellerName,
-        yearsOfUse,
-    } = modalData;
+    const { _id, categoryName, location, mobileNumber, originalPrice, phoneImage, phoneName, postedTime, productCondition, productDescription, purchaseDate, resalePrice, sellerEmail, sellerName, yearsOfUse } = modalData;
 
     const { register, handleSubmit, formState: { errors } } = useForm();
 
@@ -44,12 +28,53 @@ const BookingModal = ({ modalData, successAction, closeModal }) => {
         toast.error(`You are not a Buyer`);
     };
 
+    const buyerName = user?.displayName;
+    const buyerEmail = user?.email;
+    const phoneId = _id;
+
+    const productInfo = { phoneId, categoryName, location, mobileNumber, originalPrice, phoneImage, phoneName, postedTime, productCondition, productDescription, purchaseDate, resalePrice, sellerEmail, sellerName, yearsOfUse, buyerName, buyerEmail };
+
+    // handleWishlist
+    const handleWishlist = () => {
+        // save info on the database
+        fetch(`http://localhost:7000/wishlist-product`, {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+                authorization: `Bearer ${localStorage.getItem('accessToken')}`
+            },
+            body: JSON.stringify(productInfo)
+        }).then(res => res.json()).then(data => {
+            if (data.insertedId) {
+                toast.success(`Added to wishlist successfully`);
+                closeModal();
+            }
+        }).catch(err => console.error('err', err));
+    };
+
+    // handleReport
+    const handleReport = () => {
+        // save info on the database
+        fetch(`http://localhost:7000/reported-product`, {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+                authorization: `Bearer ${localStorage.getItem('accessToken')}`
+            },
+            body: JSON.stringify(productInfo)
+        }).then(res => res.json()).then(data => {
+            if (data.insertedId) {
+                toast.success(`Reported successfully`);
+                closeModal();
+            }
+        }).catch(err => console.error('err', err));
+    };
+
     return (
         <div>
             <input type="checkbox" id="phone-booking-modal" className="modal-toggle" />
             <div className="modal">
                 <div className="modal-box">
-
 
                     <div className='flex justify-end'>
                         <button className='btn btn-error btn-sm m-3' onClick={closeModal}>
@@ -250,8 +275,8 @@ const BookingModal = ({ modalData, successAction, closeModal }) => {
                             {
                                 currentUser?.userType === "buyer" ?
                                     <>
-                                        <button className="btn btn-accent">Add to Wishlist</button>
-                                        <button className="btn btn-accent">Report to Admin</button>
+                                        <button onClick={handleWishlist} className="btn btn-accent">Add to Wishlist</button>
+                                        <button onClick={handleReport} className="btn btn-accent">Report to Admin</button>
                                     </>
                                     :
                                     <>
@@ -262,14 +287,8 @@ const BookingModal = ({ modalData, successAction, closeModal }) => {
                         </div>
                     </div>
 
-
-
-                    {/* <div className="modal-action">
-                        <label htmlFor="phone-booking-modal" className="btn">Yay!</label>
-                    </div> */}
                 </div>
             </div>
-
 
         </div>
     );

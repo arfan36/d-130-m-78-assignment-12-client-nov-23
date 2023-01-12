@@ -3,6 +3,7 @@ import DashboardLayout from "../../Layout/DashboardLayout";
 import Main from "../../Layout/Main";
 import AllBuyers from "../../Pages/DashBoard/Admin/AllBuyers";
 import AllSellers from "../../Pages/DashBoard/Admin/AllSellers";
+import ReportedItems from "../../Pages/DashBoard/Admin/ReportedItems";
 import MyOrders from "../../Pages/DashBoard/Buyer/MyOrders";
 import WishList from "../../Pages/DashBoard/Buyer/WishList";
 import DashBoard from "../../Pages/DashBoard/Dashboard/DashBoard";
@@ -109,7 +110,13 @@ const router = createBrowserRouter([
                 element: <AdminRoute>
                     <AllBuyers></AllBuyers>
                 </AdminRoute>
-            }
+            },
+            {
+                path: '/dashboard/admin-reportedItems',
+                element: <AdminRoute>
+                    <ReportedItems></ReportedItems>
+                </AdminRoute>
+            },
         ]
     }
 ]);
