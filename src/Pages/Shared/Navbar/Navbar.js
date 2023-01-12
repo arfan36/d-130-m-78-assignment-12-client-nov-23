@@ -9,7 +9,11 @@ const Navbar = () => {
     const [loadUserType, set_loadUserType] = useState('');
 
     // check userType
-    axios.get(`http://localhost:7000/users?email=${user?.email}`)
+    axios.get(`http://localhost:7000/users?email=${user?.email}`, {
+        headers: {
+            authorization: `Bearer ${localStorage.getItem('accessToken')}`
+        }
+    })
         .then(data => {
             set_loadUserType(data.data.userType);
         });

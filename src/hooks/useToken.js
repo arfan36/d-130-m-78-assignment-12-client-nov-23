@@ -5,7 +5,11 @@ export default function useToken(email) {
     const [token, set_token] = useState('');
     useEffect(() => {
         if (email) {
-            fetch(`http://localhost:7000/jwt?email=${email}`)
+            fetch(`http://localhost:7000/jwt?email=${email}`, {
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem('accessToken')}`
+                }
+            })
                 .then(res => res.json())
                 .then(data => {
                     if (data.accessToken) {

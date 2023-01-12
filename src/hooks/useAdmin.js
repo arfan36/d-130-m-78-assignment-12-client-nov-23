@@ -6,7 +6,11 @@ export default function useAdmin(email) {
     const [isAdminLoading, set_isAdminLoading] = useState(true);
     useEffect(() => {
         if (email) {
-            fetch(`http://localhost:7000/users/admin/${email}`)
+            fetch(`http://localhost:7000/users/admin/${email}`, {
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem('accessToken')}`
+                }
+            })
                 .then(res => res.json())
                 .then(data => {
                     console.log(data);

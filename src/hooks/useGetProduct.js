@@ -7,7 +7,11 @@ export default function useGetProduct(id) {
 
     useEffect(() => {
         if (id) {
-            fetch(`http://localhost:7000/product/${id}`)
+            fetch(`http://localhost:7000/product/${id}`, {
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem('accessToken')}`
+                }
+            })
                 .then(res => res.json())
                 .then(data => {
                     console.log("🚀 ~ data", data);

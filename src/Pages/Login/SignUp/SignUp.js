@@ -58,7 +58,8 @@ const SignUp = () => {
         fetch(`http://localhost:7000/users`, {
             method: 'POST',
             headers: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                authorization: `Bearer ${localStorage.getItem('accessToken')}`
             },
             body: JSON.stringify(user)
         })
