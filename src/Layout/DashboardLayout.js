@@ -12,7 +12,7 @@ const DashboardLayout = () => {
     const [loadUserType, set_loadUserType] = useState('');
 
     // check user type
-    axios.get(`http://localhost:7000/users?email=${user?.email}`, {
+    axios.get(`https://d-130-1-m-78-assignment-12-server-nov-23.vercel.app/users?email=${user?.email}`, {
         headers: {
             authorization: `Bearer ${localStorage.getItem('accessToken')}`
         }

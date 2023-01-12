@@ -37,7 +37,7 @@ const BookingModal = ({ modalData, successAction, closeModal }) => {
     // handleWishlist
     const handleWishlist = () => {
         // save info on the database
-        fetch(`http://localhost:7000/wishlist-product`, {
+        fetch(`https://d-130-1-m-78-assignment-12-server-nov-23.vercel.app/wishlist-product`, {
             method: "POST",
             headers: {
                 "content-type": "application/json",
@@ -55,7 +55,7 @@ const BookingModal = ({ modalData, successAction, closeModal }) => {
     // handleReport
     const handleReport = () => {
         // save info on the database
-        fetch(`http://localhost:7000/reported-product`, {
+        fetch(`https://d-130-1-m-78-assignment-12-server-nov-23.vercel.app/reported-product`, {
             method: "POST",
             headers: {
                 "content-type": "application/json",

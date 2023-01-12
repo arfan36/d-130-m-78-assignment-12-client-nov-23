@@ -19,7 +19,7 @@ const CheckoutForm = ({ bookedPhone }) => {
 
     // create payment intent as soon as the page loads
     useEffect(() => {
-        fetch(`http://localhost:7000/create-payment-intent`, {
+        fetch(`https://d-130-1-m-78-assignment-12-server-nov-23.vercel.app/create-payment-intent`, {
             method: 'POST',
             headers: {
                 "content-type": "application/json",
@@ -88,7 +88,7 @@ const CheckoutForm = ({ bookedPhone }) => {
                 productId: _id,
                 sellerEmail
             };
-            fetch(`http://localhost:7000/payments`, {
+            fetch(`https://d-130-1-m-78-assignment-12-server-nov-23.vercel.app/payments`, {
                 method: "POST",
                 headers: {
                     "content-type": "application/json",

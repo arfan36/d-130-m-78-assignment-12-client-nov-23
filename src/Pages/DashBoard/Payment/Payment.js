@@ -14,7 +14,7 @@ const Payment = () => {
         queryKey: ['bookedPhone'],
         queryFn: async () => {
             try {
-                const res = await fetch(`http://localhost:7000/phoneInfo/${phoneId}`, {
+                const res = await fetch(`https://d-130-1-m-78-assignment-12-server-nov-23.vercel.app/phoneInfo/${phoneId}`, {
                     headers: {
                         authorization: `Bearer ${localStorage.getItem('accessToken')}`
                     }

@@ -16,7 +16,7 @@ const AllSellers = () => {
         queryKey: ['allSellers'],
         queryFn: async () => {
             try {
-                const res = await fetch(`http://localhost:7000/users/allSellers`, {
+                const res = await fetch(`https://d-130-1-m-78-assignment-12-server-nov-23.vercel.app/users/allSellers`, {
                     headers: {
                         authorization: `Bearer ${localStorage.getItem('accessToken')}`
                     }
@@ -31,7 +31,7 @@ const AllSellers = () => {
 
     // handle Verified Seller Status
     const handleVerifiedSellerStatus = (seller) => {
-        fetch(`http://localhost:7000/users/${seller._id}`, {
+        fetch(`https://d-130-1-m-78-assignment-12-server-nov-23.vercel.app/users/${seller._id}`, {
             method: 'POST',
             headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`
@@ -47,7 +47,7 @@ const AllSellers = () => {
 
     // handle delete Seller
     const handleDeleteSeller = (seller) => {
-        fetch(`http://localhost:7000/users/${seller._id}`, {
+        fetch(`https://d-130-1-m-78-assignment-12-server-nov-23.vercel.app/users/${seller._id}`, {
             method: 'DELETE',
             headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`

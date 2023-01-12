@@ -4,7 +4,7 @@ import Category from '../Category/Category';
 const Categories = () => {
     const [categories, set_categories] = useState([]);
     useEffect(() => {
-        fetch(`http://localhost:7000/category`, {
+        fetch(`https://d-130-1-m-78-assignment-12-server-nov-23.vercel.app/category`, {
             headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`
             }
