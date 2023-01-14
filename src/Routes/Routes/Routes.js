@@ -13,14 +13,15 @@ import MyProducts from "../../Pages/DashBoard/Seller/MyProducts";
 import SeeAll from "../../Pages/Home/Advertised/SeeAll";
 import Blog from "../../Pages/Home/Blog/Blog";
 import Categories from "../../Pages/Home/Categories/Categories/Categories";
-import Category from "../../Pages/Home/Categories/Category/Category";
 import CategorySingle from "../../Pages/Home/Categories/Category/CategorySingle";
 import Home from "../../Pages/Home/Home/Home";
 import Login from "../../Pages/Login/Login/Login";
 import SignUp from "../../Pages/Login/SignUp/SignUp";
 import DisplayError from "../../Pages/Shared/DisplayError/DisplayError";
 import AdminRoute from "../PrivateRoute/AdminRoute";
+import BuyerRoute from "../PrivateRoute/BuyerRoute";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
+import SellerRoute from "../PrivateRoute/SellerRoute";
 
 const router = createBrowserRouter([
     {
@@ -76,11 +77,15 @@ const router = createBrowserRouter([
             },
             {
                 path: '/dashboard/buyer-myOrder',
-                element: <MyOrders></MyOrders>
+                element: <BuyerRoute>
+                    <MyOrders></MyOrders>
+                </BuyerRoute>
             },
             {
                 path: '/dashboard/buyer-wishlist',
-                element: <WishList></WishList>
+                element: <BuyerRoute>
+                    <WishList></WishList>
+                </BuyerRoute>
             },
             {
                 path: '/dashboard/payment/:id',
@@ -89,11 +94,15 @@ const router = createBrowserRouter([
             },
             {
                 path: '/dashboard/seller-addAProduct',
-                element: <AddAProduct></AddAProduct>
+                element: <SellerRoute>
+                    <AddAProduct></AddAProduct>
+                </SellerRoute>
             },
             {
                 path: '/dashboard/seller-myProducts',
-                element: <MyProducts></MyProducts>
+                element: <SellerRoute>
+                    <MyProducts></MyProducts>
+                </SellerRoute>
             },
             {
                 path: '/dashboard/admin-allSellers',

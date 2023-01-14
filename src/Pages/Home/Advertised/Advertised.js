@@ -21,7 +21,7 @@ const Advertised = () => {
     const { data: advertisedItems, isLoading } = useQuery({
         queryKey: ['advertised-limit'],
         queryFn: async () => {
-            const res = await fetch(`https://d-130-1-m-78-assignment-12-server-nov-23.vercel.app/advertised-limit`, {
+            const res = await fetch(`http://localhost:7000/advertised-limit`, {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem('accessToken')}`
                 }
@@ -40,7 +40,7 @@ const Advertised = () => {
         const booked = { buyerLocation, buyerMobileNumber, buyerName: user?.displayName, buyerEmail: user?.email, categoryName, location, mobileNumber, originalPrice, phoneImage, phoneName, postedTime, productCondition, productDescription, purchaseDate, resalePrice, sellerEmail, sellerName, yearsOfUse, productId: _id };
 
         // save info to database
-        fetch(`https://d-130-1-m-78-assignment-12-server-nov-23.vercel.app/booked`, {
+        fetch(`http://localhost:7000/booked`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
@@ -60,7 +60,12 @@ const Advertised = () => {
 
     return (
         <div>
-            <h2 className="text-3xl text-center mt-16">Advertised items</h2>
+            {
+                user?.uid &&
+                <>
+                    <h2 className="text-3xl text-center mt-16">Advertised items</h2>
+                </>
+            }
             <div className='grid grid-cols-1 md:grid-cols-2 gap-6 justify-items-center my-8 mx-8'>
                 {advertisedItems.length > 0 &&
                     advertisedItems?.map(item => <AdvertisedItems
@@ -80,7 +85,10 @@ const Advertised = () => {
                 }
             </div>
             <div className='text-end'>
-                <Link to={'/see-all'}><button className='btn btn-sm btn-primary'>See All</button></Link>
+                {
+                    user?.uid &&
+                    <><Link to={'/see-all'}><button className='btn btn-sm btn-primary'>See All</button></Link></>
+                }
             </div>
         </div>
     );

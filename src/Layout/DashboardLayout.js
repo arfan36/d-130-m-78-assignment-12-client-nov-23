@@ -3,7 +3,6 @@ import React, { useContext } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthProvider';
 import Loading from '../Pages/Shared/Loading/Loading';
-// import useAdmin from '../hooks/useAdmin';
 import Navbar from '../Pages/Shared/Navbar/Navbar';
 
 
@@ -14,7 +13,7 @@ const DashboardLayout = () => {
     const { data: loadUser, isLoading } = useQuery({
         queryKey: ["users", user?.email],
         queryFn: async () => {
-            const res = await fetch(`https://d-130-1-m-78-assignment-12-server-nov-23.vercel.app/users?email=${user?.email}`);
+            const res = await fetch(`http://localhost:7000/users?email=${user?.email}`);
             const data = await res.json();
             return data;
         }

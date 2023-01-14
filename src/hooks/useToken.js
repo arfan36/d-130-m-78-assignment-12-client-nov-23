@@ -5,7 +5,7 @@ export default function useToken(email) {
     const [token, set_token] = useState('');
     useEffect(() => {
         if (email) {
-            fetch(`https://d-130-1-m-78-assignment-12-server-nov-23.vercel.app/jwt?email=${email}`, {
+            fetch(`http://localhost:7000/jwt?email=${email}`, {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem('accessToken')}`
                 }

@@ -6,7 +6,7 @@ export default function useUser(email) {
 
     useEffect(() => {
         if (email) {
-            fetch(`https://d-130-1-m-78-assignment-12-server-nov-23.vercel.app/users?email=${email}`, {
+            fetch(`http://localhost:7000/users?email=${email}`, {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem('accessToken')}`
                 }

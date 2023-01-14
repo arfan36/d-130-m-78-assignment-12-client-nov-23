@@ -19,7 +19,7 @@ const MyProducts = () => {
         queryKey: ['products'],
         queryFn: async () => {
             try {
-                const res = await fetch(`https://d-130-1-m-78-assignment-12-server-nov-23.vercel.app/products?sellerEmail=${user?.email}`, {
+                const res = await fetch(`http://localhost:7000/products?sellerEmail=${user?.email}`, {
                     headers: {
                         authorization: `Bearer ${localStorage.getItem('accessToken')}`
                     }
@@ -35,7 +35,7 @@ const MyProducts = () => {
 
     // handle delete product
     const handleDeleteProduct = (product) => {
-        fetch(`https://d-130-1-m-78-assignment-12-server-nov-23.vercel.app/products/${product._id}`, {
+        fetch(`http://localhost:7000/products/${product._id}`, {
             method: 'DELETE',
             headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`
@@ -50,7 +50,7 @@ const MyProducts = () => {
 
     // handle Advertise
     const handleAdvertise = (product) => {
-        fetch(`https://d-130-1-m-78-assignment-12-server-nov-23.vercel.app/products/${product._id}`, {
+        fetch(`http://localhost:7000/products/${product._id}`, {
             method: 'POST',
             headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`

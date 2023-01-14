@@ -24,7 +24,7 @@ const CategorySingle = () => {
         queryKey: ['categoryName'],
         queryFn: async () => {
             try {
-                const res = await fetch(`https://d-130-1-m-78-assignment-12-server-nov-23.vercel.app/products/${loadCategoryName}`, {
+                const res = await fetch(`http://localhost:7000/products/${loadCategoryName}`, {
                     headers: {
                         authorization: `Bearer ${localStorage.getItem('accessToken')}`
                     }
@@ -46,7 +46,7 @@ const CategorySingle = () => {
         const booked = { buyerLocation, buyerMobileNumber, buyerName: user?.displayName, buyerEmail: user?.email, categoryName, location, mobileNumber, originalPrice, phoneImage, phoneName, postedTime, productCondition, productDescription, purchaseDate, resalePrice, sellerEmail, sellerName, yearsOfUse, productId: _id };
 
         // save info to database
-        fetch(`https://d-130-1-m-78-assignment-12-server-nov-23.vercel.app/booked`, {
+        fetch(`http://localhost:7000/booked`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',

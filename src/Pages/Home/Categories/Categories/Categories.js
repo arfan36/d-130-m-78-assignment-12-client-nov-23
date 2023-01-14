@@ -7,7 +7,7 @@ const Categories = () => {
     const { data: categories, isLoading } = useQuery({
         queryKey: ['category'],
         queryFn: async () => {
-            const res = await fetch(`https://d-130-1-m-78-assignment-12-server-nov-23.vercel.app/category`, {
+            const res = await fetch(`http://localhost:7000/category`, {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem('accessToken')}`
                 }

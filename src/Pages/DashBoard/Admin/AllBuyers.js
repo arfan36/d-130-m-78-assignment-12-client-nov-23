@@ -16,7 +16,7 @@ const AllBuyers = () => {
         queryKey: ['allBuyers'],
         queryFn: async () => {
             try {
-                const res = await fetch(`https://d-130-1-m-78-assignment-12-server-nov-23.vercel.app/users/allBuyers`, {
+                const res = await fetch(`http://localhost:7000/users/allBuyers`, {
                     headers: {
                         authorization: `Bearer ${localStorage.getItem('accessToken')}`
                     }
@@ -31,7 +31,7 @@ const AllBuyers = () => {
 
     // handle delete Buyers
     const handleDeleteBuyer = (buyer) => {
-        fetch(`https://d-130-1-m-78-assignment-12-server-nov-23.vercel.app/users/${buyer._id}`, {
+        fetch(`http://localhost:7000/users/${buyer._id}`, {
             method: 'DELETE',
             headers: {
                 authorization: `Bearer ${localStorage.getItem('accessToken')}`
