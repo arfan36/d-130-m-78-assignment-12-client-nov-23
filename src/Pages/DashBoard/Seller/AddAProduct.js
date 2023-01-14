@@ -17,7 +17,7 @@ const AddAProduct = () => {
     const { data: categories, isLoading, } = useQuery({
         queryKey: ['category-names'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:7000/category-names`, {
+            const res = await fetch(`https://d-130-1-m-78-assignment-12-server-nov-23.vercel.app/category-names`, {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem('accessToken')}`
                 }
@@ -80,7 +80,7 @@ const AddAProduct = () => {
                     console.log("🚀 ~ product", product);
 
                     // save product info to the database
-                    fetch(`http://localhost:7000/products`, {
+                    fetch(`https://d-130-1-m-78-assignment-12-server-nov-23.vercel.app/products`, {
                         method: 'POST',
                         headers: {
                             'content-type': 'application/json',

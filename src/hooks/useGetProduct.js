@@ -7,7 +7,7 @@ export default function useGetProduct(id) {
 
     useEffect(() => {
         if (id) {
-            fetch(`http://localhost:7000/product/${id}`, {
+            fetch(`https://d-130-1-m-78-assignment-12-server-nov-23.vercel.app/product/${id}`, {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem('accessToken')}`
                 }

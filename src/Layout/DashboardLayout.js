@@ -13,7 +13,7 @@ const DashboardLayout = () => {
     const { data: loadUser, isLoading } = useQuery({
         queryKey: ["users", user?.email],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:7000/users?email=${user?.email}`);
+            const res = await fetch(`https://d-130-1-m-78-assignment-12-server-nov-23.vercel.app/users?email=${user?.email}`);
             const data = await res.json();
             return data;
         }

@@ -21,7 +21,7 @@ const Advertised = () => {
     const { data: advertisedItems, isLoading } = useQuery({
         queryKey: ['advertised-limit'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:7000/advertised-limit`, {
+            const res = await fetch(`https://d-130-1-m-78-assignment-12-server-nov-23.vercel.app/advertised-limit`, {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem('accessToken')}`
                 }
@@ -40,7 +40,7 @@ const Advertised = () => {
         const booked = { buyerLocation, buyerMobileNumber, buyerName: user?.displayName, buyerEmail: user?.email, categoryName, location, mobileNumber, originalPrice, phoneImage, phoneName, postedTime, productCondition, productDescription, purchaseDate, resalePrice, sellerEmail, sellerName, yearsOfUse, productId: _id };
 
         // save info to database
-        fetch(`http://localhost:7000/booked`, {
+        fetch(`https://d-130-1-m-78-assignment-12-server-nov-23.vercel.app/booked`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',

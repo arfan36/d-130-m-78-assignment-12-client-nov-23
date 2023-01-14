@@ -6,7 +6,7 @@ export default function useBuyer(email) {
     const [isBuyerLoading, set_isBuyerLoading] = useState(true);
     useEffect(() => {
         if (email) {
-            fetch(`http://localhost:7000/users/buyer/${email}`, {
+            fetch(`https://d-130-1-m-78-assignment-12-server-nov-23.vercel.app/users/buyer/${email}`, {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem('accessToken')}`
                 }

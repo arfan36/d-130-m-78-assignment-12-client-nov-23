@@ -10,7 +10,7 @@ const MyOrders = () => {
     const { data: myOrders, isLoading } = useQuery({
         queryKey: ['booked'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:7000/booked?buyerEmail=${user?.email}`, {
+            const res = await fetch(`https://d-130-1-m-78-assignment-12-server-nov-23.vercel.app/booked?buyerEmail=${user?.email}`, {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem('accessToken')}`
                 }
