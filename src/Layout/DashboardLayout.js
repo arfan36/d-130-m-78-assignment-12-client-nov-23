@@ -1,25 +1,28 @@
-import axios from 'axios';
-import React, { useContext, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import React, { useContext } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthProvider';
+import Loading from '../Pages/Shared/Loading/Loading';
 // import useAdmin from '../hooks/useAdmin';
 import Navbar from '../Pages/Shared/Navbar/Navbar';
 
 
 const DashboardLayout = () => {
     const { user } = useContext(AuthContext);
-    // const [isAdmin] = useAdmin(user?.email);
-    const [loadUserType, set_loadUserType] = useState('');
 
     // check user type
-    axios.get(`https://d-130-1-m-78-assignment-12-server-nov-23.vercel.app/users?email=${user?.email}`, {
-        headers: {
-            authorization: `Bearer ${localStorage.getItem('accessToken')}`
+    const { data: loadUser, isLoading } = useQuery({
+        queryKey: ["users", user?.email],
+        queryFn: async () => {
+            const res = await fetch(`https://d-130-1-m-78-assignment-12-server-nov-23.vercel.app/users?email=${user?.email}`);
+            const data = await res.json();
+            return data;
         }
-    })
-        .then(data => {
-            set_loadUserType(data.data.userType);
-        });
+    });
+
+    if (isLoading) {
+        return <Loading></Loading>;
+    }
 
     return (
         <div>
@@ -35,14 +38,14 @@ const DashboardLayout = () => {
                     <ul className="menu p-4 w-80 text-base-content">
                         {/* <!-- Sidebar content here --> */}
                         {
-                            user?.uid && loadUserType === "buyer" &&
+                            user?.uid && loadUser.userType === "buyer" &&
                             <>
                                 <li><Link to={'/dashboard/buyer-myOrder'}>My Orders</Link></li>
                                 <li><Link to={'/dashboard/buyer-wishlist'}>WishList</Link></li>
                             </>
                         }
                         {
-                            user?.uid && loadUserType === "seller" &&
+                            user?.uid && loadUser.userType === "seller" &&
                             <>
                                 <li><Link to={'/dashboard/seller-addAProduct'}>Add A Product</Link></li>
                                 <li><Link to={'/dashboard/seller-myProducts'}>My Products</Link></li>
@@ -50,7 +53,7 @@ const DashboardLayout = () => {
                             </>
                         }
                         {
-                            user?.uid && loadUserType === "admin" &&
+                            user?.uid && loadUser.userType === "admin" &&
                             <>
                                 <li><Link to={'/dashboard/admin-allSellers'}>All Sellers</Link></li>
                                 <li><Link to={'/dashboard/admin-allBuyers'}>All Buyers</Link></li>
