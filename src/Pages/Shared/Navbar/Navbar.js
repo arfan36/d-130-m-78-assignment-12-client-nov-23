@@ -21,7 +21,6 @@ const Navbar = () => {
 
     const handleLogOut = () => {
         logOut().then(() => {
-            set_loadUserType('');
             navigate('/');
         }).catch((err) => {
             console.error('err', err);
