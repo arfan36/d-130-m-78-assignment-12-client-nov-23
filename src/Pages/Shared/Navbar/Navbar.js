@@ -1,12 +1,13 @@
 import axios from 'axios';
 import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthProvider';
 import { AiOutlineMenuFold } from "react-icons/ai";
 
 const Navbar = () => {
     const { user, logOut } = useContext(AuthContext);
     const [loadUserType, set_loadUserType] = useState('');
+    const navigate = useNavigate();
 
     // check userType
     axios.get(`https://d-130-1-m-78-assignment-12-server-nov-23.vercel.app/users?email=${user?.email}`, {
@@ -20,6 +21,8 @@ const Navbar = () => {
 
     const handleLogOut = () => {
         logOut().then(() => {
+            set_loadUserType('');
+            navigate('/');
         }).catch((err) => {
             console.error('err', err);
         });

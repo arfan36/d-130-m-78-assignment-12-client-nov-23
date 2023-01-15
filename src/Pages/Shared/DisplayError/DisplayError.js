@@ -12,7 +12,7 @@ const DisplayError = () => {
     // log out handler
     const handleLogOut = () => {
         logOut().then(() => {
-            navigate('/login');
+            navigate('/');
             toast.success('successfully LogOut');
         }).catch((err) => {
             console.error('err', err);
