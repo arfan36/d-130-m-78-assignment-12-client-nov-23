@@ -2,6 +2,7 @@ import React from 'react';
 import Advertised from '../Advertised/Advertised';
 import Carousel from '../Carousel/Carousel';
 import Categories from '../Categories/Categories/Categories';
+import Guide from '../Guide/Guide';
 import Mockup from '../Mockup/Mockup';
 
 const Home = () => {
@@ -10,7 +11,8 @@ const Home = () => {
             <Carousel></Carousel>
             <Advertised></Advertised>
             <Categories></Categories>
-            <Mockup></Mockup>
+            {/* <Mockup></Mockup> */}
+            <Guide></Guide>
         </div>
     );
 };
