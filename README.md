@@ -21,4 +21,4 @@ Click here for the live site: [https://assignment12-d-130.web.app/](https://assi
 * admin can verify a seller , delete a reported product, delete any user (buyer/seller)
 
 adminEmail: <ee@ee.com>
-adminPassword: <AA2525*>
+adminPassword: <>
