@@ -20,5 +20,5 @@ Click here for the live site: [https://assignment12-d-130.web.app/](https://assi
 * Buyer can Book a product and then buy, add to wishlist and also report to admin.
 * admin can verify a seller , delete a reported product, delete any user (buyer/seller)
 
-adminEmail: <ee@ee.com>
-adminPassword: <>
+adminEmail: <admin email>
+adminPassword: <admin password>
